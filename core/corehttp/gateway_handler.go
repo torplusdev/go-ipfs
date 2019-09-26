@@ -367,6 +367,11 @@ func (i *gatewayHandler) serveFile(w http.ResponseWriter, req *http.Request, nam
 		http.Error(w, fmt.Sprintf("foobar %T: %s", file, err), http.StatusBadGateway)
 		return
 	}
+	if _, isSymlink := file.(*files.Symlink); isSymlink {
+		// We should be smarter about resolving symlinks but this is the
+		// "most correct" we can be without doing that.
+		w.Header().Set("Content-Type", "inode/symlink")
+	}
 	http.ServeContent(w, req, name, modtime, &lazySeeker{
 		size:   size,
 		reader: file,
