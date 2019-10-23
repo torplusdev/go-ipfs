@@ -4,7 +4,7 @@ import (
 	"net"
 	"net/http"
 
-	core "github.com/ipfs/go-ipfs/core"
+	core "paidpiper/ipfs/go-ipfs/core"
 )
 
 func RedirectOption(path string, redirect string) ServeOption {

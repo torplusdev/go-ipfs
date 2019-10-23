@@ -11,9 +11,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/ipfs/go-ipfs/core"
-	"github.com/ipfs/go-ipfs/pin/gc"
-	"github.com/ipfs/go-ipfs/repo"
+	"paidpiper/ipfs/go-ipfs/core"
+	"paidpiper/ipfs/go-ipfs/pin/gc"
+	"paidpiper/ipfs/go-ipfs/repo"
 
 	blocks "github.com/ipfs/go-block-format"
 	"github.com/ipfs/go-blockservice"

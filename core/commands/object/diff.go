@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"io"
 
-	cmdenv "github.com/ipfs/go-ipfs/core/commands/cmdenv"
-	"github.com/ipfs/go-ipfs/dagutils"
+	cmdenv "paidpiper/ipfs/go-ipfs/core/commands/cmdenv"
+	"paidpiper/ipfs/go-ipfs/dagutils"
 
 	cmds "github.com/ipfs/go-ipfs-cmds"
 	path "github.com/ipfs/interface-go-ipfs-core/path"

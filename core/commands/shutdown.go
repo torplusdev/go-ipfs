@@ -1,7 +1,7 @@
 package commands
 
 import (
-	cmdenv "github.com/ipfs/go-ipfs/core/commands/cmdenv"
+	cmdenv "paidpiper/ipfs/go-ipfs/core/commands/cmdenv"
 
 	"github.com/ipfs/go-ipfs-cmds"
 )

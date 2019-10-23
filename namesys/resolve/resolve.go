@@ -11,7 +11,7 @@ import (
 	"github.com/ipfs/go-path"
 	"github.com/ipfs/go-path/resolver"
 
-	"github.com/ipfs/go-ipfs/namesys"
+	"paidpiper/ipfs/go-ipfs/namesys"
 )
 
 var log = logging.Logger("nsresolv")

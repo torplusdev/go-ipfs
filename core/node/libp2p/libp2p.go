@@ -3,7 +3,7 @@ package libp2p
 import (
 	"time"
 
-	version "github.com/ipfs/go-ipfs"
+	version "paidpiper/ipfs/go-ipfs"
 
 	logging "github.com/ipfs/go-log"
 	"github.com/libp2p/go-libp2p"

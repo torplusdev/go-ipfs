@@ -6,8 +6,8 @@ import (
 	"math"
 	"strings"
 
-	"github.com/ipfs/go-ipfs/core/commands/cmdenv"
-	"github.com/ipfs/go-ipfs/core/coredag"
+	"paidpiper/ipfs/go-ipfs/core/commands/cmdenv"
+	"paidpiper/ipfs/go-ipfs/core/coredag"
 
 	cid "github.com/ipfs/go-cid"
 	cidenc "github.com/ipfs/go-cidutil/cidenc"

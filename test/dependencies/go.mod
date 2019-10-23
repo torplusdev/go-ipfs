@@ -17,5 +17,6 @@ require (
 	github.com/multiformats/go-multihash v0.0.7
 	github.com/ultraware/funlen v0.0.2 // indirect
 	golang.org/x/tools v0.0.0-20190912185636-87d9f09c5d89 // indirect
+	google.golang.org/appengine v1.4.0 // indirect
 	gotest.tools/gotestsum v0.3.5
 )

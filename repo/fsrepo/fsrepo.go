@@ -12,11 +12,11 @@ import (
 	"sync"
 
 	filestore "github.com/ipfs/go-filestore"
-	keystore "github.com/ipfs/go-ipfs/keystore"
-	repo "github.com/ipfs/go-ipfs/repo"
-	"github.com/ipfs/go-ipfs/repo/common"
-	mfsr "github.com/ipfs/go-ipfs/repo/fsrepo/migrations"
-	dir "github.com/ipfs/go-ipfs/thirdparty/dir"
+	keystore "paidpiper/ipfs/go-ipfs/keystore"
+	repo "paidpiper/ipfs/go-ipfs/repo"
+	"paidpiper/ipfs/go-ipfs/repo/common"
+	mfsr "paidpiper/ipfs/go-ipfs/repo/fsrepo/migrations"
+	dir "paidpiper/ipfs/go-ipfs/thirdparty/dir"
 
 	ds "github.com/ipfs/go-datastore"
 	measure "github.com/ipfs/go-ds-measure"

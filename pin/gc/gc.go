@@ -8,7 +8,7 @@ import (
 	"strings"
 
 	bserv "github.com/ipfs/go-blockservice"
-	pin "github.com/ipfs/go-ipfs/pin"
+	pin "paidpiper/ipfs/go-ipfs/pin"
 	dag "github.com/ipfs/go-merkledag"
 
 	cid "github.com/ipfs/go-cid"

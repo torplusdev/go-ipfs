@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/ipfs/go-ipfs/core/commands/cmdenv"
-	"github.com/ipfs/go-ipfs/namesys/resolve"
-	tar "github.com/ipfs/go-ipfs/tar"
+	"paidpiper/ipfs/go-ipfs/core/commands/cmdenv"
+	"paidpiper/ipfs/go-ipfs/namesys/resolve"
+	tar "paidpiper/ipfs/go-ipfs/tar"
 
 	"github.com/ipfs/go-ipfs-cmds"
 	dag "github.com/ipfs/go-merkledag"

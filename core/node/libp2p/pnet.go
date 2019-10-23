@@ -11,7 +11,7 @@ import (
 	pnet "github.com/libp2p/go-libp2p-pnet"
 	"go.uber.org/fx"
 
-	"github.com/ipfs/go-ipfs/repo"
+	"paidpiper/ipfs/go-ipfs/repo"
 )
 
 type PNetFingerprint []byte

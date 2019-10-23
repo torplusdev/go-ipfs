@@ -9,11 +9,11 @@ import (
 	"path/filepath"
 	"syscall"
 
-	commands "github.com/ipfs/go-ipfs/commands"
-	core "github.com/ipfs/go-ipfs/core"
-	coreapi "github.com/ipfs/go-ipfs/core/coreapi"
-	corehttp "github.com/ipfs/go-ipfs/core/corehttp"
-	fsrepo "github.com/ipfs/go-ipfs/repo/fsrepo"
+	commands "paidpiper/ipfs/go-ipfs/commands"
+	core "paidpiper/ipfs/go-ipfs/core"
+	coreapi "paidpiper/ipfs/go-ipfs/core/coreapi"
+	corehttp "paidpiper/ipfs/go-ipfs/core/corehttp"
+	fsrepo "paidpiper/ipfs/go-ipfs/repo/fsrepo"
 
 	fsnotify "github.com/fsnotify/fsnotify"
 	config "github.com/ipfs/go-ipfs-config"

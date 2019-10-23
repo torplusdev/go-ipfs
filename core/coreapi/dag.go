@@ -3,7 +3,7 @@ package coreapi
 import (
 	"context"
 
-	"github.com/ipfs/go-ipfs/pin"
+	"paidpiper/ipfs/go-ipfs/pin"
 
 	cid "github.com/ipfs/go-cid"
 	ipld "github.com/ipfs/go-ipld-format"

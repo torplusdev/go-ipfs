@@ -3,7 +3,7 @@ package commands
 import (
 	"testing"
 
-	"github.com/ipfs/go-ipfs/namesys"
+	"paidpiper/ipfs/go-ipfs/namesys"
 
 	ipns "github.com/ipfs/go-ipns"
 	"github.com/libp2p/go-libp2p-core/test"

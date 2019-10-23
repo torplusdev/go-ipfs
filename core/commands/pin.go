@@ -8,10 +8,10 @@ import (
 	"os"
 	"time"
 
-	core "github.com/ipfs/go-ipfs/core"
-	cmdenv "github.com/ipfs/go-ipfs/core/commands/cmdenv"
-	e "github.com/ipfs/go-ipfs/core/commands/e"
-	pin "github.com/ipfs/go-ipfs/pin"
+	core "paidpiper/ipfs/go-ipfs/core"
+	cmdenv "paidpiper/ipfs/go-ipfs/core/commands/cmdenv"
+	e "paidpiper/ipfs/go-ipfs/core/commands/e"
+	pin "paidpiper/ipfs/go-ipfs/pin"
 
 	bserv "github.com/ipfs/go-blockservice"
 	cid "github.com/ipfs/go-cid"

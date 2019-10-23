@@ -7,8 +7,8 @@ import (
 	"io"
 	"io/ioutil"
 
-	util "github.com/ipfs/go-ipfs/blocks/blockstoreutil"
-	pin "github.com/ipfs/go-ipfs/pin"
+	util "paidpiper/ipfs/go-ipfs/blocks/blockstoreutil"
+	pin "paidpiper/ipfs/go-ipfs/pin"
 
 	blocks "github.com/ipfs/go-block-format"
 	cid "github.com/ipfs/go-cid"

@@ -6,7 +6,7 @@ import (
 	"sync"
 	"time"
 
-	pin "github.com/ipfs/go-ipfs/pin"
+	pin "paidpiper/ipfs/go-ipfs/pin"
 
 	proto "github.com/gogo/protobuf/proto"
 	ds "github.com/ipfs/go-datastore"

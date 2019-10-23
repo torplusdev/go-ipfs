@@ -4,9 +4,9 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/ipfs/go-ipfs/core/node/helpers"
-	"github.com/ipfs/go-ipfs/pin"
-	"github.com/ipfs/go-ipfs/repo"
+	"paidpiper/ipfs/go-ipfs/core/node/helpers"
+	"paidpiper/ipfs/go-ipfs/pin"
+	"paidpiper/ipfs/go-ipfs/repo"
 
 	"github.com/ipfs/go-bitswap"
 	"github.com/ipfs/go-bitswap/network"

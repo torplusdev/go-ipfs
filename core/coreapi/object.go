@@ -11,8 +11,8 @@ import (
 	"io"
 	"io/ioutil"
 
-	"github.com/ipfs/go-ipfs/dagutils"
-	"github.com/ipfs/go-ipfs/pin"
+	"paidpiper/ipfs/go-ipfs/dagutils"
+	"paidpiper/ipfs/go-ipfs/pin"
 
 	cid "github.com/ipfs/go-cid"
 	ipld "github.com/ipfs/go-ipld-format"

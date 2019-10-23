@@ -9,11 +9,11 @@ import (
 	"testing"
 	"time"
 
-	core "github.com/ipfs/go-ipfs/core"
-	bootstrap2 "github.com/ipfs/go-ipfs/core/bootstrap"
-	"github.com/ipfs/go-ipfs/core/coreapi"
-	mock "github.com/ipfs/go-ipfs/core/mock"
-	"github.com/ipfs/go-ipfs/thirdparty/unit"
+	core "paidpiper/ipfs/go-ipfs/core"
+	bootstrap2 "paidpiper/ipfs/go-ipfs/core/bootstrap"
+	"paidpiper/ipfs/go-ipfs/core/coreapi"
+	mock "paidpiper/ipfs/go-ipfs/core/mock"
+	"paidpiper/ipfs/go-ipfs/thirdparty/unit"
 
 	files "github.com/ipfs/go-ipfs-files"
 	peer "github.com/libp2p/go-libp2p-core/peer"

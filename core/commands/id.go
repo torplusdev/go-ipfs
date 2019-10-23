@@ -8,9 +8,9 @@ import (
 	"io"
 	"strings"
 
-	version "github.com/ipfs/go-ipfs"
-	core "github.com/ipfs/go-ipfs/core"
-	cmdenv "github.com/ipfs/go-ipfs/core/commands/cmdenv"
+	version "paidpiper/ipfs/go-ipfs"
+	core "paidpiper/ipfs/go-ipfs/core"
+	cmdenv "paidpiper/ipfs/go-ipfs/core/commands/cmdenv"
 
 	cmds "github.com/ipfs/go-ipfs-cmds"
 	ic "github.com/libp2p/go-libp2p-core/crypto"
