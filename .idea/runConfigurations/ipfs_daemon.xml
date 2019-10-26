@@ -6,7 +6,7 @@
     <parameters value="--debug daemon " />
     <kind value="PACKAGE" />
     <filePath value="$PROJECT_DIR$/" />
-    <package value="paidpiper/ipfs/go-ipfs/cmd/ipfs" />
+    <package value="paidpiper.com/ipfs/go-ipfs/cmd/ipfs" />
     <directory value="$PROJECT_DIR$/" />
     <output_directory value="$PROJECT_DIR$/cmd/ipfs" />
     <method v="2" />
