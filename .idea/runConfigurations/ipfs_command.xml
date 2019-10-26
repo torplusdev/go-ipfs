@@ -5,7 +5,7 @@
     <go_parameters value="-asmflags=all='-trimpath=$GOPATH$' -gcflags=all='-trimpath=$GOPATH$' -o &quot;cmd/ipfs/ipfs.exe&quot;" />
     <kind value="PACKAGE" />
     <filePath value="$PROJECT_DIR$/" />
-    <package value="paidpiper.com/ipfs/go-ipfs/cmd/ipfs" />
+    <package value="paidpiper/ipfs/go-ipfs/cmd/ipfs" />
     <directory value="$PROJECT_DIR$/" />
     <output_directory value="$PROJECT_DIR$/cmd/ipfs" />
     <method v="2" />
