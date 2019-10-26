@@ -3,7 +3,7 @@
     <module name="go-ipfs" />
     <working_directory value="$PROJECT_DIR$/" />
     <go_parameters value="-asmflags=all='-trimpath=$GOPATH$' -gcflags=all='-trimpath=$GOPATH$' -o &quot;cmd/ipfs/ipfs.exe&quot;" />
-    <parameters value="daemon" />
+    <parameters value="--debug daemon " />
     <kind value="PACKAGE" />
     <filePath value="$PROJECT_DIR$/" />
     <package value="paidpiper/ipfs/go-ipfs/cmd/ipfs" />

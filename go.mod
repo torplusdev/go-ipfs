@@ -104,10 +104,16 @@ require (
 	github.com/whyrusleeping/tar-utils v0.0.0-20180509141711-8c6c8ba81d5c
 	go.uber.org/fx v1.9.0
 	golang.org/x/arch v0.0.0-20190927153633-4e8777c89be4 // indirect
-	golang.org/x/crypto v0.0.0-20190926180335-cea2066c6411 // indirect
 	golang.org/x/sys v0.0.0-20190926180325-855e68c8590b
 	google.golang.org/appengine v1.4.0 // indirect
 	gopkg.in/cheggaaa/pb.v1 v1.0.28
+	paidpiper.com/libp2p/go-libp2p v0.0.0-00010101000000-000000000000
 )
+
+replace paidpiper.com/libp2p/go-libp2p-core => ../go-libp2p-core
+
+replace paidpiper.com/go-libp2p-onion-transport => ../go-libp2p-onion-transport
+
+replace paidpiper.com/libp2p/go-libp2p => ../go-libp2p
 
 go 1.12

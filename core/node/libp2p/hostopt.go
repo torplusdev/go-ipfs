@@ -3,8 +3,9 @@ package libp2p
 import (
 	"context"
 	"fmt"
-
 	"github.com/libp2p/go-libp2p"
+
+	"paidpiper.com/libp2p/go-libp2p"
 	host "github.com/libp2p/go-libp2p-core/host"
 	peer "github.com/libp2p/go-libp2p-core/peer"
 	peerstore "github.com/libp2p/go-libp2p-core/peerstore"

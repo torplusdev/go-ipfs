@@ -3,7 +3,7 @@ package libp2p
 import (
 	"fmt"
 
-	"github.com/libp2p/go-libp2p"
+	"paidpiper.com/libp2p/go-libp2p"
 	host "github.com/libp2p/go-libp2p-core/host"
 	p2pbhost "github.com/libp2p/go-libp2p/p2p/host/basic"
 	mafilter "github.com/libp2p/go-maddr-filter"

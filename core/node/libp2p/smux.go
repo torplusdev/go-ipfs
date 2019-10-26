@@ -4,7 +4,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/libp2p/go-libp2p"
+	"paidpiper.com/libp2p/go-libp2p"
 	smux "github.com/libp2p/go-libp2p-core/mux"
 	mplex "github.com/libp2p/go-libp2p-mplex"
 	yamux "github.com/libp2p/go-libp2p-yamux"

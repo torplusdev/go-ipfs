@@ -11,6 +11,7 @@ package core
 
 import (
 	"context"
+	"fmt"
 	"io"
 
 	"github.com/ipfs/go-filestore"
@@ -30,23 +31,24 @@ import (
 	"github.com/ipfs/go-ipfs-provider"
 	ipld "github.com/ipfs/go-ipld-format"
 	logging "github.com/ipfs/go-log"
-	mfs "github.com/ipfs/go-mfs"
-	resolver "github.com/ipfs/go-path/resolver"
-	goprocess "github.com/jbenet/goprocess"
+	"github.com/ipfs/go-mfs"
+	"github.com/ipfs/go-path/resolver"
+	"github.com/jbenet/goprocess"
 	autonat "github.com/libp2p/go-libp2p-autonat-svc"
-	connmgr "github.com/libp2p/go-libp2p-core/connmgr"
+	"github.com/libp2p/go-libp2p-core/connmgr"
 	ic "github.com/libp2p/go-libp2p-core/crypto"
 	p2phost "github.com/libp2p/go-libp2p-core/host"
-	metrics "github.com/libp2p/go-libp2p-core/metrics"
-	peer "github.com/libp2p/go-libp2p-core/peer"
+	"github.com/libp2p/go-libp2p-core/metrics"
+	"github.com/libp2p/go-libp2p-core/peer"
 	pstore "github.com/libp2p/go-libp2p-core/peerstore"
-	routing "github.com/libp2p/go-libp2p-core/routing"
+	"github.com/libp2p/go-libp2p-core/routing"
 	dht "github.com/libp2p/go-libp2p-kad-dht"
 	pubsub "github.com/libp2p/go-libp2p-pubsub"
 	psrouter "github.com/libp2p/go-libp2p-pubsub-router"
 	record "github.com/libp2p/go-libp2p-record"
 	"github.com/libp2p/go-libp2p/p2p/discovery"
 	p2pbhost "github.com/libp2p/go-libp2p/p2p/host/basic"
+	ma "github.com/multiformats/go-multiaddr"
 )
 
 var log = logging.Logger("core")
@@ -112,6 +114,8 @@ type Mounts struct {
 	Ipns mount.Mount
 }
 
+type ID string
+
 // Close calls Close() on the App object
 func (n *IpfsNode) Close() error {
 	return n.stop()
@@ -154,13 +158,65 @@ func (n *IpfsNode) Bootstrap(cfg bootstrap.BootstrapConfig) error {
 	return err
 }
 
+func splitAddr(m ma.Multiaddr) (transport ma.Multiaddr, id ID) {
+	if m == nil {
+		return nil, ""
+	}
+
+	transport, p2ppart := ma.SplitLast(m)
+	if p2ppart == nil || ((p2ppart.Protocol().Code != ma.P_P2P) && (p2ppart.Protocol().Code != ma.P_ONION3)) {
+		return m, ""
+	}
+	id = ID(p2ppart.RawValue()) // already validated by the multiaddr library.
+	return transport, id
+}
+
+var ErrInvalidAddr = fmt.Errorf("invalid p2p multiaddr")
+
+// PP: Work around to use onion multiaddr
+func bootstrapPeers(addrs []string) ([]peer.AddrInfo, error) {
+
+	maddrs := make([]ma.Multiaddr, len(addrs))
+	for i, addr := range addrs {
+		var err error
+		maddrs[i], err = ma.NewMultiaddr(addr)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	//peer.AddrInfosFromP2pAddrs(maddrs...)
+
+	m := make(map[ID][]ma.Multiaddr)
+	for _, maddr := range maddrs {
+		transport, id := splitAddr(maddr)
+		if id == "" {
+			return nil, ErrInvalidAddr
+		}
+		if transport == nil {
+			if _, ok := m[id]; !ok {
+				m[id] = nil
+			}
+		} else {
+			m[id] = append(m[id], transport)
+		}
+	}
+	ais := make([]peer.AddrInfo, 0, len(m))
+	for id, maddrs := range m {
+		ais = append(ais, peer.AddrInfo{ID: peer.ID(id), Addrs: maddrs})
+	}
+	return ais, nil
+
+}
+
 func (n *IpfsNode) loadBootstrapPeers() ([]peer.AddrInfo, error) {
 	cfg, err := n.Repo.Config()
 	if err != nil {
 		return nil, err
 	}
 
-	return cfg.BootstrapPeers()
+	return bootstrapPeers(cfg.Bootstrap)
+	//return cfg.BootstrapPeers()
 }
 
 type ConstructPeerHostOpts struct {
