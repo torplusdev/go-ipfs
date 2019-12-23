@@ -123,4 +123,6 @@ replace github.com/libp2p/go-libp2p-swarm => ../go-libp2p-swarm
 
 replace github.com/ipfs/go-bitswap => ../go-bitswap
 
+replace github.com/ipfs/go-ipfs-config => ../go-ipfs-config
+
 go 1.12

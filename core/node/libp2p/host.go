@@ -50,6 +50,13 @@ func Host(mctx helpers.MetricsCtx, lc fx.Lifecycle, params P2PHostIn) (out P2PHo
 		return r, err
 	}))
 
+	cfg, err := params.Repo.Config()
+	if err != nil {
+		return P2PHostOut{}, err
+	}
+
+	opts = append(opts, libp2p.StellarPublicKey(cfg.Stellar.PublicKey))
+
 	out.Host, err = params.HostOption(ctx, params.ID, params.Peerstore, opts...)
 	if err != nil {
 		return P2PHostOut{}, err
