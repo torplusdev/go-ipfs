@@ -6,7 +6,7 @@ import (
 	version "paidpiper/ipfs/go-ipfs"
 
 	logging "github.com/ipfs/go-log"
-	"paidpiper.com/libp2p/go-libp2p"
+	"github.com/libp2p/go-libp2p"
 	"github.com/libp2p/go-libp2p-connmgr"
 	"github.com/libp2p/go-libp2p-core/crypto"
 	"github.com/libp2p/go-libp2p-core/peer"

@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"time"
 
-	"paidpiper.com/libp2p/go-libp2p"
+	"github.com/libp2p/go-libp2p"
 	host "github.com/libp2p/go-libp2p-core/host"
 	pnet "github.com/libp2p/go-libp2p-pnet"
 	"go.uber.org/fx"

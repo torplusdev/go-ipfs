@@ -1,7 +1,7 @@
 package libp2p
 
 import (
-	"paidpiper.com/libp2p/go-libp2p"
+	"github.com/libp2p/go-libp2p"
 	autonat "github.com/libp2p/go-libp2p-autonat-svc"
 	host "github.com/libp2p/go-libp2p-core/host"
 	libp2pquic "github.com/libp2p/go-libp2p-quic-transport"
