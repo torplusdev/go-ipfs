@@ -227,7 +227,7 @@ func Online(bcfg *BuildCfg, cfg *config.Config) fx.Option {
 	shouldBitswapProvide := !cfg.Experimental.StrategicProviding
 
 	return fx.Options(
-		fx.Provide(OnlineExchange(shouldBitswapProvide)),
+		fx.Provide(OnlineExchange(shouldBitswapProvide, cfg.Stellar.Seed)),
 		fx.Provide(Namesys(ipnsCacheSize)),
 
 		fx.Invoke(IpnsRepublisher(repubPeriod, recordLifetime)),
