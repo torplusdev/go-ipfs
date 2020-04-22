@@ -3,7 +3,6 @@ package libp2p
 import (
 	"context"
 
-	"github.com/stellar/go/keypair"
 	"github.com/libp2p/go-libp2p"
 	host "github.com/libp2p/go-libp2p-core/host"
 	peer "github.com/libp2p/go-libp2p-core/peer"
@@ -50,18 +49,6 @@ func Host(mctx helpers.MetricsCtx, lc fx.Lifecycle, params P2PHostIn) (out P2PHo
 		out.Routing = r
 		return r, err
 	}))
-
-	cfg, err := params.Repo.Config()
-	if err != nil {
-		return P2PHostOut{}, err
-	}
-
-	kp, err := keypair.Parse(cfg.Stellar.Seed)
-	if err != nil {
-		return P2PHostOut{}, err
-	}
-
-	opts = append(opts, libp2p.StellarPublicKey(kp.Address()))
 
 	out.Host, err = params.HostOption(ctx, params.ID, params.Peerstore, opts...)
 	if err != nil {

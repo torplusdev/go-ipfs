@@ -59,10 +59,10 @@ func Dag(bs blockservice.BlockService) format.DAGService {
 }
 
 // OnlineExchange creates new LibP2P backed block exchange (BitSwap)
-func OnlineExchange(provide bool, stellarSeed string) interface{} {
+func OnlineExchange(provide bool, commandListenPort int, channelUrl string) interface{} {
 	return func(mctx helpers.MetricsCtx, lc fx.Lifecycle, host host.Host, rt routing.Routing, bs blockstore.GCBlockstore) exchange.Interface {
-		bitswapNetwork := network.NewFromIpfsHost(host, rt, stellarSeed)
-		exch := bitswap.New(helpers.LifecycleCtx(mctx, lc), bitswapNetwork, bs, bitswap.ProvideEnabled(provide))
+		bitswapNetwork := network.NewFromIpfsHost(host, rt)
+		exch := bitswap.New(helpers.LifecycleCtx(mctx, lc), bitswapNetwork, bs, bitswap.ProvideEnabled(provide), bitswap.PPChannelConfig(commandListenPort, channelUrl))
 		lc.Append(fx.Hook{
 			OnStop: func(ctx context.Context) error {
 				return exch.Close()
