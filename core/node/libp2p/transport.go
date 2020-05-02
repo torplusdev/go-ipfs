@@ -8,6 +8,15 @@ import (
 	tls "github.com/libp2p/go-libp2p-tls"
 )
 
+
+func TorPath(path string) func() (opts Libp2pOpts, err error) {
+	return func() (opts Libp2pOpts, err error) {
+		opts.Opts = append(opts.Opts, libp2p.TorPath(path))
+
+		return opts, nil
+	}
+}
+
 var DefaultTransports = simpleOpt(libp2p.DefaultTransports)
 var QUIC = simpleOpt(libp2p.Transport(libp2pquic.NewTransport))
 

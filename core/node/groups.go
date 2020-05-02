@@ -113,6 +113,8 @@ func LibP2P(bcfg *BuildCfg, cfg *config.Config) fx.Option {
 		maybeInvoke(libp2p.AutoNATService(cfg.Experimental.QUIC), cfg.Swarm.EnableAutoNATService),
 		connmgr,
 		ps,
+
+		fx.Provide(libp2p.TorPath(cfg.TorPath)),
 	)
 
 	return opts

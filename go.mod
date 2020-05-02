@@ -10,6 +10,7 @@ require (
 	github.com/elgris/jsondiff v0.0.0-20160530203242-765b5c24c302
 	github.com/fsnotify/fsnotify v1.4.7
 	github.com/go-bindata/go-bindata v3.1.2+incompatible
+	github.com/go-delve/delve v1.4.0 // indirect
 	github.com/gogo/protobuf v1.3.1
 	github.com/google/pprof v0.0.0-20191022163618-5260658b92d7 // indirect
 	github.com/hashicorp/go-multierror v1.0.0
@@ -105,7 +106,6 @@ require (
 	github.com/whyrusleeping/multiaddr-filter v0.0.0-20160516205228-e903e4adabd7
 	github.com/whyrusleeping/tar-utils v0.0.0-20180509141711-8c6c8ba81d5c
 	go.uber.org/fx v1.9.0
-	golang.org/x/arch v0.0.0-20190927153633-4e8777c89be4 // indirect
 	golang.org/x/sys v0.0.0-20191218084908-4a24b4065292
 	gopkg.in/cheggaaa/pb.v1 v1.0.28
 )
