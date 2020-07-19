@@ -11,12 +11,10 @@ pool:
 
 variables:
   GO_INSTALL: '/usr/lib/go-1.12'
-  PATH: "$(PATH):$(GO_INSTALL)/bin"
 
 steps:
-- script:
-    echo $(GO_INSTALL)
-    echo $(PATH)
+- script: |
+    echo '##vso[task.setvariable variable=path]$(PATH):$(GO_INSTALL)/bin'
   displayName: 'Checking Go installation'
 
 - script: |
