@@ -13,11 +13,7 @@ variables:
   GO_INSTALL: '/usr/lib/go-1.12'
 
 steps:
-- script:
-    echo '##vso[task.prependpath]$(GO_INSTALL)/bin'
     echo $(GO_INSTALL)
-    echo `go version`
-    echo `go env`
   displayName: 'Checking Go installation'
 
 - script: |
