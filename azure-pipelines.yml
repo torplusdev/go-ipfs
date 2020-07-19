@@ -10,10 +10,11 @@ pool:
   name: 'Ubuntu_Pool'
 
 variables:
-  PATH: $(PATH):/usr/lib/go-1.12/bin
+  GO_INSTALL: '/usr/lib/go-1.12'
 
 steps:
 - script:
+    echo '##vso[task.prependpath]$(GO_INSTALL)/bin'
     go version
     go env
   displayName: 'Checking Go installation'
