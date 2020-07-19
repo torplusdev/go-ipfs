@@ -13,6 +13,7 @@ variables:
   GO_INSTALL: '/usr/lib/go-1.12'
 
 steps:
+- script:
     echo $(GO_INSTALL)
   displayName: 'Checking Go installation'
 
