@@ -15,8 +15,8 @@ variables:
 steps:
 - script:
     echo '##vso[task.prependpath]$(GO_INSTALL)/bin'
-    go version
-    go env
+    echo `go version`
+    echo `go env`
   displayName: 'Checking Go installation'
 
 - script: |
