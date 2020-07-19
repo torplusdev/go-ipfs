@@ -11,6 +11,7 @@ pool:
 
 variables:
   GO_INSTALL: '/usr/lib/go-1.12'
+  PATH: '$(PATH):$(GO_INSTALL)/bin'
 
 steps:
 - script:
