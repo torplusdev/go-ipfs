@@ -7,7 +7,7 @@ trigger:
 - master
 
 pool:
-  name: 'Ubuntu-Pool'
+  name: 'Ubuntu_Pool'
 
 variables:
   GOBIN:  '$(GOPATH)/bin' # Go binaries path
