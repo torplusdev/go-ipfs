@@ -15,12 +15,12 @@ variables:
 steps:
 - script: |
     echo '##vso[task.setvariable variable=path]$(PATH):$(GO_INSTALL)/bin'
-    go version
-    go env
   displayName: 'Checking Go installation'
 
 - script: |
-    go build -v -t
+    go version
+    go env
+    go build -v
   workingDirectory: $(Build.SourcesDirectory)/cmd/ipfs
   displayName: 'Building'
 
