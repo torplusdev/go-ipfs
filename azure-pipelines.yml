@@ -10,7 +10,7 @@ pool:
   name: 'Ubuntu_Pool'
 
 variables:
-  PATH: $PATH:/usr/lib/go-1.12/bin
+  PATH: $(PATH):/usr/lib/go-1.12/bin
 
 steps:
 - script:
