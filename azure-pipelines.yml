@@ -56,9 +56,24 @@ steps:
     go version
     go env
   displayName: 'Checking Go installation'
-
+  
+- script: |
+    go test -v ./...
+  workingDirectory: $(Build.SourcesDirectory)/go-ipfs/cmd
+  displayName: 'Running all the cmd tests'
+  
 - script: |
     go build -v
   workingDirectory: $(Build.SourcesDirectory)/go-ipfs/cmd/ipfs
-  displayName: 'Building'
+  displayName: 'Building Go Ipfs'
+  
+- script: |
+    go build -v
+  workingDirectory: $(Build.SourcesDirectory)/go-ipfs/cmd/ipfswatch
+  displayName: 'Building Go Ipfswatch'
+
+- script: |
+    go build -v
+  workingDirectory: $(Build.SourcesDirectory)/go-ipfs/cmd/seccat
+  displayName: 'Building Go Seccat'
 
