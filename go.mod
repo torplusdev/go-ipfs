@@ -126,4 +126,8 @@ replace github.com/ipfs/go-bitswap => ../go-bitswap
 
 replace github.com/ipfs/go-ipfs-config => ../go-ipfs-config
 
+replace github.com/xdrpp/stc => github.com/xdrpp/stc v0.0.0-20191115000000-b2821823938c
+
+replace github.com/xdrpp/goxdr => github.com/xdrpp/goxdr v0.0.0-20191115000000-b0b915788678
+
 go 1.12

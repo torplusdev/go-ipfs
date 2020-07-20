@@ -1020,7 +1020,9 @@ github.com/whyrusleeping/yamux v1.1.5/go.mod h1:E8LnQQ8HKx5KD29HZFUwM1PxCOdPRzGw
 github.com/whyrusleeping/yamux v1.2.0/go.mod h1:Cgw3gpb4DrDZ1FrP/5pxg/cpiY54Gr5uCXwUylwi2GE=
 github.com/x-cray/logrus-prefixed-formatter v0.5.2/go.mod h1:2duySbKsL6M18s5GU7VPsoEPHyzalCE06qoARUCeBBE=
 github.com/xdrpp/goxdr v0.0.0-20191113231906-019d11aacd2b/go.mod h1:vklyPo9Sphl4lZx+IoQW0wPnqMMRmuCINPDfSzwtJVw=
+github.com/xdrpp/goxdr v0.0.0-20191115000000-b0b915788678/go.mod h1:dXo1scL/l6s7iME1gxHWo2XCppbHEKZS7m/KyYWkNzA=
 github.com/xdrpp/stc v0.0.0-20191113232203-b257d8ace4e0/go.mod h1:gl+ezqvAgwkHN6CbzPoWFnbpIETeDQdBLHws3TaNDo4=
+github.com/xdrpp/stc v0.0.0-20191115000000-b2821823938c/go.mod h1:qEFG9AmkF6yK5iAwdH34ULV3Fc+28cgizgdzaRLCx+A=
 github.com/xeipuuv/gojsonpointer v0.0.0-20151027082146-e0fe6f683076/go.mod h1:N2zxlSyiKSe5eX1tZViRH5QA0qijqEDrYZiPEAiq3wU=
 github.com/xeipuuv/gojsonreference v0.0.0-20150808065054-e02fc20de94c/go.mod h1:GwrjFmJcFw6At/Gs6z4yjiIwzuJ1/+UwLxMQDVQXShQ=
 github.com/xeipuuv/gojsonschema v0.0.0-20161231055540-f06f290571ce/go.mod h1:5yf86TLmAcydyeJq5YvxkGPE2fm/u4myDekKRoLuqhs=
