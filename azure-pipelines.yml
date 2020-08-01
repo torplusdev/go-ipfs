@@ -86,8 +86,17 @@ steps:
     replaceExistingArchive: true
     verbose: true
 
+- task: ArchiveFiles@2
+  inputs:
+    rootFolderOrFile: '$(Build.SourcesDirectory)/go-ipfs/cmd/ipfs/ipfs'
+    includeRootFolder: true
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/ipfs-latest.zip'
+    replaceExistingArchive: true
+    verbose: true
+
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: 'drop'
+    ArtifactName: 'ipfs'
     publishLocation: 'Container'
