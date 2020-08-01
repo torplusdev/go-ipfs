@@ -111,7 +111,7 @@ steps:
     includeRootFolder: true
     archiveType: '7z'
     sevenZipCompression: 'ultra'
-    archiveFile: '$(Build.ArtifactStagingDirectory)/ipfs-ultra-latest.zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/ipfs-ultra-latest.7z'
     replaceExistingArchive: true
     verbose: true
 
