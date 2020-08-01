@@ -81,27 +81,9 @@ steps:
   inputs:
     rootFolderOrFile: '$(Build.SourcesDirectory)/go-ipfs/cmd/ipfs/ipfs'
     includeRootFolder: true
-    archiveType: 'zip'
-    archiveFile: '$(Build.ArtifactStagingDirectory)/ipfs-$(Build.BuildId).zip'
-    replaceExistingArchive: true
-    verbose: true
-
-- task: ArchiveFiles@2
-  inputs:
-    rootFolderOrFile: '$(Build.SourcesDirectory)/go-ipfs/cmd/ipfs/ipfs'
-    includeRootFolder: true
-    archiveType: 'zip'
-    archiveFile: '$(Build.ArtifactStagingDirectory)/ipfs-latest.zip'
-    replaceExistingArchive: true
-    verbose: true
-
-- task: ArchiveFiles@2
-  inputs:
-    rootFolderOrFile: '$(Build.SourcesDirectory)/go-ipfs/cmd/ipfs/ipfs'
-    includeRootFolder: true
     archiveType: '7z'
-    sevenZipCompression: 'normal'
-    archiveFile: '$(Build.ArtifactStagingDirectory)/ipfs-normal-latest.7z'
+    sevenZipCompression: 'ultra'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/ipfs-$(Build.BuildId).7z'
     replaceExistingArchive: true
     verbose: true
 
@@ -111,7 +93,7 @@ steps:
     includeRootFolder: true
     archiveType: '7z'
     sevenZipCompression: 'ultra'
-    archiveFile: '$(Build.ArtifactStagingDirectory)/ipfs-ultra-latest.7z'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/ipfs-latest.7z'
     replaceExistingArchive: true
     verbose: true
 
