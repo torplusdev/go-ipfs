@@ -77,3 +77,11 @@ steps:
   workingDirectory: $(Build.SourcesDirectory)/go-ipfs/cmd/seccat
   displayName: 'Building Go Seccat'
 
+- task: ArchiveFiles@2
+  inputs:
+    rootFolderOrFile: '$(Build.SourcesDirectory)/go-ipfs/cmd/ipfs'
+    includeRootFolder: true
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/ipfs-$(Build.BuildId).zip'
+    replaceExistingArchive: true
+    verbose: true
