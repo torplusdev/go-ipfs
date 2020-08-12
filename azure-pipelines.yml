@@ -60,7 +60,7 @@ steps:
   
 - script: |
     go test -v ./...
-  workingDirectory: $(Build.SourcesDirectory)/go-ipfs/cmd
+  workingDirectory: $(Build.SourcesDirectory)/go-ipfs/cmd/ipfs
   displayName: 'Running all the cmd tests'
   
 - script: |
@@ -68,15 +68,15 @@ steps:
   workingDirectory: $(Build.SourcesDirectory)/go-ipfs/cmd/ipfs
   displayName: 'Building Go Ipfs'
   
-- script: |
-    go build -v
-  workingDirectory: $(Build.SourcesDirectory)/go-ipfs/cmd/ipfswatch
-  displayName: 'Building Go Ipfswatch'
+#- script: |
+#    go build -v
+#  workingDirectory: $(Build.SourcesDirectory)/go-ipfs/cmd/ipfswatch
+#  displayName: 'Building Go Ipfswatch'
 
-- script: |
-    go build -v
-  workingDirectory: $(Build.SourcesDirectory)/go-ipfs/cmd/seccat
-  displayName: 'Building Go Seccat'
+#- script: |
+#    go build -v
+#  workingDirectory: $(Build.SourcesDirectory)/go-ipfs/cmd/seccat
+#  displayName: 'Building Go Seccat'
 
 - task: ArchiveFiles@2
   inputs:
