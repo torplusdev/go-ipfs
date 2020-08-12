@@ -35,8 +35,8 @@ trigger:
 pool:
   name: 'Ubuntu_Pool'
 
-variables:
-  GO_INSTALL: '/usr/lib/go-1.12'
+#variables:
+#  GO_INSTALL: '/usr/lib/go-1.12'
   
 steps:
 - checkout: self
@@ -48,10 +48,10 @@ steps:
 - checkout: Go_Libp2p_Swarm
 - checkout: Go_Multiaddr
 - checkout: Go_Multiaddr_Net
-- script: |
-    echo '##vso[task.setvariable variable=path]$(GO_INSTALL)/bin:$(PATH)'
-    echo '##vso[task.setvariable variable=gopath]$(HOME)/go-1.12'
-  displayName: 'Setting Go installation'
+#- script: |
+#    echo '##vso[task.setvariable variable=path]$(GO_INSTALL)/bin:$(PATH)'
+#    echo '##vso[task.setvariable variable=gopath]$(HOME)/go-1.12'
+#  displayName: 'Setting Go installation'
 
 - script: |
     go version
@@ -60,7 +60,7 @@ steps:
   
 - script: |
     go test -v ./...
-  workingDirectory: $(Build.SourcesDirectory)/go-ipfs/cmd
+  workingDirectory: $(Build.SourcesDirectory)/go-ipfs/cmd/ipfs
   displayName: 'Running all the cmd tests'
   
 - script: |
@@ -68,15 +68,15 @@ steps:
   workingDirectory: $(Build.SourcesDirectory)/go-ipfs/cmd/ipfs
   displayName: 'Building Go Ipfs'
   
-- script: |
-    go build -v
-  workingDirectory: $(Build.SourcesDirectory)/go-ipfs/cmd/ipfswatch
-  displayName: 'Building Go Ipfswatch'
+#- script: |
+#    go build -v
+#  workingDirectory: $(Build.SourcesDirectory)/go-ipfs/cmd/ipfswatch
+#  displayName: 'Building Go Ipfswatch'
 
-- script: |
-    go build -v
-  workingDirectory: $(Build.SourcesDirectory)/go-ipfs/cmd/seccat
-  displayName: 'Building Go Seccat'
+#- script: |
+#    go build -v
+#  workingDirectory: $(Build.SourcesDirectory)/go-ipfs/cmd/seccat
+#  displayName: 'Building Go Seccat'
 
 - task: ArchiveFiles@2
   inputs:
