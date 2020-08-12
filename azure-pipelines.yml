@@ -49,7 +49,7 @@ steps:
 - checkout: Go_Multiaddr
 - checkout: Go_Multiaddr_Net
 - script: |
-    echo '##vso[task.setvariable variable=path]$(PATH):$(GO_INSTALL)/bin'
+    echo '##vso[task.setvariable variable=path]$(GO_INSTALL)/bin:$(PATH)'
   displayName: 'Setting Go installation'
 
 - script: |
