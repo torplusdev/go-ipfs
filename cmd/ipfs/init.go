@@ -26,6 +26,8 @@ const (
 	bitsOptionName         = "bits"
 	emptyRepoOptionName    = "empty-repo"
 	profileOptionName      = "profile"
+	announceAddressName    = "announce"
+	bootStrapAddressName   = "bootStrap"
 )
 
 var errRepoExists = errors.New(`ipfs configuration file already exists!
@@ -57,6 +59,8 @@ environment variable:
 		cmds.IntOption(bitsOptionName, "b", "Number of bits to use in the generated RSA private key.").WithDefault(nBitsForKeypairDefault),
 		cmds.BoolOption(emptyRepoOptionName, "e", "Don't add and pin help files to the local storage."),
 		cmds.StringOption(profileOptionName, "p", "Apply profile settings to config. Multiple profiles can be separated by ','"),
+		cmds.StringOption(announceAddressName, "a", "Onion service address to announce."),
+		cmds.StringOption(bootStrapAddressName, "t", "Bootstrap peer address."),
 
 		// TODO need to decide whether to expose the override as a file or a
 		// directory. That is: should we allow the user to also specify the
@@ -107,7 +111,10 @@ environment variable:
 		}
 
 		profiles, _ := req.Options[profileOptionName].(string)
-		return doInit(os.Stdout, cctx.ConfigRoot, empty, nBitsForKeypair, profiles, conf)
+		announceAddress, _ := req.Options[announceAddressName].(string)
+		bootStrapAddress, _ := req.Options[bootStrapAddressName].(string)
+
+		return doInit(os.Stdout, cctx.ConfigRoot, empty, nBitsForKeypair, profiles, strings.Split(announceAddress, ","), strings.Split(bootStrapAddress, ","), conf)
 	},
 }
 
@@ -129,7 +136,7 @@ func applyProfiles(conf *config.Config, profiles string) error {
 	return nil
 }
 
-func doInit(out io.Writer, repoRoot string, empty bool, nBitsForKeypair int, confProfiles string, conf *config.Config) error {
+func doInit(out io.Writer, repoRoot string, empty bool, nBitsForKeypair int, confProfiles string, announceAddresses []string, bootStrapAddress []string, conf *config.Config) error {
 	if _, err := fmt.Fprintf(out, "initializing IPFS node at %s\n", repoRoot); err != nil {
 		return err
 	}
@@ -144,7 +151,7 @@ func doInit(out io.Writer, repoRoot string, empty bool, nBitsForKeypair int, con
 
 	if conf == nil {
 		var err error
-		conf, err = config.Init(out, nBitsForKeypair)
+		conf, err = config.Init(out, nBitsForKeypair, bootStrapAddress, announceAddresses)
 		if err != nil {
 			return err
 		}
