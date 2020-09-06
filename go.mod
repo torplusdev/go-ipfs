@@ -126,4 +126,22 @@ replace github.com/ipfs/go-bitswap => ../go-bitswap
 
 replace github.com/ipfs/go-ipfs-config => ../go-ipfs-config
 
-go 1.12
+replace github.com/xdrpp/stc => github.com/xdrpp/stc v0.0.0-20191113232133-b2821823938c
+
+replace github.com/xdrpp/goxdr => github.com/xdrpp/goxdr v0.0.0-20191113231830-b0b915788678
+
+replace github.com/go-critic/go-critic => github.com/go-critic/go-critic v0.0.0-20190210220443-ee9bf5809ead
+
+replace github.com/golangci/errcheck => github.com/golangci/errcheck v0.0.0-20181223084120-ef45e06d44b6
+
+replace github.com/golangci/go-tools => github.com/golangci/go-tools v0.0.0-20190318060251-af6baa5dc196
+
+replace github.com/golangci/gofmt => github.com/golangci/gofmt v0.0.0-20181222123516-0b8337e80d98
+
+replace github.com/golangci/gosec => github.com/golangci/gosec v0.0.0-20190211064107-66fb7fc33547
+
+replace github.com/golangci/lint-1 => github.com/golangci/lint-1 v0.0.0-20190420132249-ee948d087217
+
+replace mvdan.cc/unparam => mvdan.cc/unparam v0.0.0-20190209190245-fbb59629db34
+
+go 1.14
