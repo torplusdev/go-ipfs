@@ -12,7 +12,7 @@ package core
 import (
 	"context"
 	"io"
-
+	"fmt"
 	"github.com/ipfs/go-filestore"
 	"github.com/ipfs/go-ipfs-pinner"
 
@@ -130,6 +130,59 @@ func (n *IpfsNode) Context() context.Context {
 	return n.ctx
 }
 
+type ID string
+
+func splitAddr(m ma.Multiaddr) (transport ma.Multiaddr, id ID) {
+	if m == nil {
+		return nil, ""
+	}
+
+	transport, p2ppart := ma.SplitLast(m)
+	if p2ppart == nil || ((p2ppart.Protocol().Code != ma.P_P2P) && (p2ppart.Protocol().Code != ma.P_ONION3)) {
+		return m, ""
+	}
+	id = ID(p2ppart.RawValue()) // already validated by the multiaddr library.
+	return transport, id
+}
+
+var ErrInvalidAddr = fmt.Errorf("invalid p2p multiaddr")
+
+// PP: Work around to use onion multiaddr
+func bootstrapPeers(addrs []string) ([]peer.AddrInfo, error) {
+
+	maddrs := make([]ma.Multiaddr, len(addrs))
+	for i, addr := range addrs {
+		var err error
+		maddrs[i], err = ma.NewMultiaddr(addr)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	//peer.AddrInfosFromP2pAddrs(maddrs...)
+
+	m := make(map[ID][]ma.Multiaddr)
+	for _, maddr := range maddrs {
+		transport, id := splitAddr(maddr)
+		if id == "" {
+			return nil, ErrInvalidAddr
+		}
+		if transport == nil {
+			if _, ok := m[id]; !ok {
+				m[id] = nil
+			}
+		} else {
+			m[id] = append(m[id], transport)
+		}
+	}
+	ais := make([]peer.AddrInfo, 0, len(m))
+	for id, maddrs := range m {
+		ais = append(ais, peer.AddrInfo{ID: peer.ID(id), Addrs: maddrs})
+	}
+	return ais, nil
+
+}
+
 // Bootstrap will set and call the IpfsNodes bootstrap function.
 func (n *IpfsNode) Bootstrap(cfg bootstrap.BootstrapConfig) error {
 	// TODO what should return value be when in offlineMode?
@@ -165,7 +218,7 @@ func (n *IpfsNode) loadBootstrapPeers() ([]peer.AddrInfo, error) {
 		return nil, err
 	}
 
-	return cfg.BootstrapPeers()
+	return bootstrapPeers(cfg.Bootstrap)
 }
 
 type ConstructPeerHostOpts struct {
