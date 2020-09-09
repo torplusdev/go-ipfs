@@ -18,7 +18,7 @@ require (
 	github.com/ipfs/go-bitswap v0.2.19
 	github.com/ipfs/go-block-format v0.0.2
 	github.com/ipfs/go-blockservice v0.1.3
-	github.com/ipfs/go-cid v0.0.6
+	github.com/ipfs/go-cid v0.0.7
 	github.com/ipfs/go-cidutil v0.0.2
 	github.com/ipfs/go-datastore v0.4.4
 	github.com/ipfs/go-detect-race v0.0.1
@@ -86,6 +86,7 @@ require (
 	github.com/libp2p/go-tcp-transport v0.2.0
 	github.com/libp2p/go-ws-transport v0.3.1
 	github.com/mattn/go-runewidth v0.0.9 // indirect
+	github.com/mgutz/ansi v0.0.0-20200706080929-d51e80ef957d // indirect
 	github.com/miekg/dns v1.1.29 // indirect
 	github.com/mitchellh/go-homedir v1.1.0
 	github.com/mr-tron/base58 v1.1.3
@@ -112,5 +113,12 @@ require (
 	golang.org/x/tools v0.0.0-20200522201501-cb1345f3a375 // indirect
 	gopkg.in/cheggaaa/pb.v1 v1.0.28
 )
+
+replace github.com/libp2p/go-libp2p => ../go-libp2p
+replace github.com/libp2p/go-libp2p-core => ../go-libp2p-core
+replace paidpiper.com/go-libp2p-onion-transport => ../go-libp2p-onion-transport
+replace github.com/ipfs/go-ipfs-config => ../go-ipfs-config
+replace github.com/ipfs/go-bitswap => ../go-bitswap
+
 
 go 1.13

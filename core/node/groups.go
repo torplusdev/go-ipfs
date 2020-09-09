@@ -69,6 +69,7 @@ func LibP2P(bcfg *BuildCfg, cfg *config.Config) fx.Option {
 	// parse PubSub config
 
 	ps, disc := fx.Options(), fx.Options()
+
 	if bcfg.getOpt("pubsub") || bcfg.getOpt("ipnsps") {
 		disc = fx.Provide(libp2p.TopicDiscovery())
 
@@ -148,6 +149,7 @@ func LibP2P(bcfg *BuildCfg, cfg *config.Config) fx.Option {
 		connmgr,
 		ps,
 		disc,
+		fx.Provide(libp2p.TorPath(cfg.TorPath)),
 	)
 
 	return opts
@@ -262,7 +264,7 @@ func Online(bcfg *BuildCfg, cfg *config.Config) fx.Option {
 	shouldBitswapProvide := !cfg.Experimental.StrategicProviding
 
 	return fx.Options(
-		fx.Provide(OnlineExchange(shouldBitswapProvide)),
+		fx.Provide(OnlineExchange(shouldBitswapProvide, cfg.PPChannel.CommandListenPort, cfg.PPChannel.ChannelUrl)),
 		maybeProvide(Graphsync, cfg.Experimental.GraphsyncEnabled),
 		fx.Provide(Namesys(ipnsCacheSize)),
 		fx.Provide(Peering),
