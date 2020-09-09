@@ -88,6 +88,8 @@ require (
 	github.com/libp2p/go-ws-transport v0.4.0
 	github.com/lucas-clemente/quic-go v0.19.3
 	github.com/mattn/go-runewidth v0.0.9 // indirect
+	github.com/mgutz/ansi v0.0.0-20200706080929-d51e80ef957d // indirect
+	github.com/miekg/dns v1.1.29 // indirect
 	github.com/mitchellh/go-homedir v1.1.0
 	github.com/multiformats/go-multiaddr v0.3.1
 	github.com/multiformats/go-multiaddr-dns v0.2.0
@@ -112,3 +114,10 @@ require (
 )
 
 go 1.14
+replace github.com/libp2p/go-libp2p => ../go-libp2p
+replace github.com/libp2p/go-libp2p-core => ../go-libp2p-core
+replace paidpiper.com/go-libp2p-onion-transport => ../go-libp2p-onion-transport
+replace github.com/ipfs/go-ipfs-config => ../go-ipfs-config
+replace github.com/ipfs/go-bitswap => ../go-bitswap
+
+

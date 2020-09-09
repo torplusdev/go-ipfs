@@ -21,6 +21,14 @@ func init() {
 	quic.RetireBugBackwardsCompatibilityMode = true
 }
 
+func TorPath(path string) func() (opts Libp2pOpts, err error) {
+	return func() (opts Libp2pOpts, err error) {
+		opts.Opts = append(opts.Opts, libp2p.TorPath(path))
+
+		return opts, nil
+	}
+}
+
 func Transports(tptConfig config.Transports) interface{} {
 	return func(pnet struct {
 		fx.In
