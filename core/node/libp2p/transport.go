@@ -2,6 +2,7 @@ package libp2p
 
 import (
 	"fmt"
+	oniontransport "paidpiper.com/go-libp2p-onion-transport"
 
 	config "github.com/ipfs/go-ipfs-config"
 	libp2p "github.com/libp2p/go-libp2p"
@@ -22,12 +23,22 @@ func TorPath(path string) func() (opts Libp2pOpts, err error) {
 	}
 }
 
-func Transports(tptConfig config.Transports) interface{} {
+func TorConfigPath(path string) func() (opts Libp2pOpts, err error) {
+	return func() (opts Libp2pOpts, err error) {
+		opts.Opts = append(opts.Opts, libp2p.TorConfigPath(path))
+
+		return opts, nil
+	}
+}
+
+func Transports(tptConfig config.Transports, config *config.Config) interface{} {
 	return func(pnet struct {
 		fx.In
 		Fprint PNetFingerprint `optional:"true"`
-	}) (opts Libp2pOpts, err error) {
+	}) (opts Libp2pOpts,err error) {
 		privateNetworkEnabled := pnet.Fprint != nil
+
+
 
 		if tptConfig.Network.TCP.WithDefault(true) {
 			opts.Opts = append(opts.Opts, libp2p.Transport(tcp.NewTCPTransport))
@@ -35,6 +46,12 @@ func Transports(tptConfig config.Transports) interface{} {
 
 		if tptConfig.Network.Websocket.WithDefault(true) {
 			opts.Opts = append(opts.Opts, libp2p.Transport(websocket.New))
+		}
+
+		if tptConfig.Network.Tor.WithDefault(true) {
+			opts.Opts = append(opts.Opts, libp2p.Transport(
+				oniontransport.NewOnionTransportC(config.TorPath,
+					config.TorConfigPath,"", nil, "", true)))
 		}
 
 		if tptConfig.Network.QUIC.WithDefault(!privateNetworkEnabled) {

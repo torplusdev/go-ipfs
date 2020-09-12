@@ -127,12 +127,13 @@ func LibP2P(bcfg *BuildCfg, cfg *config.Config) fx.Option {
 	// Gather all the options
 	opts := fx.Options(
 		BaseLibP2P,
-
+		fx.Provide(libp2p.TorPath(cfg.TorPath)),
+		fx.Provide(libp2p.TorConfigPath(cfg.TorConfigPath)),
 		fx.Provide(libp2p.AddrFilters(cfg.Swarm.AddrFilters)),
 		fx.Provide(libp2p.AddrsFactory(cfg.Addresses.Announce, cfg.Addresses.NoAnnounce)),
 		fx.Provide(libp2p.SmuxTransport(cfg.Swarm.Transports)),
 		fx.Provide(libp2p.Relay(enableRelay, cfg.Swarm.EnableRelayHop)),
-		fx.Provide(libp2p.Transports(cfg.Swarm.Transports)),
+		fx.Provide(libp2p.Transports(cfg.Swarm.Transports, cfg)),
 		fx.Invoke(libp2p.StartListening(cfg.Addresses.Swarm)),
 		fx.Invoke(libp2p.SetupDiscovery(cfg.Discovery.MDNS.Enabled, cfg.Discovery.MDNS.Interval)),
 
@@ -149,7 +150,7 @@ func LibP2P(bcfg *BuildCfg, cfg *config.Config) fx.Option {
 		connmgr,
 		ps,
 		disc,
-		fx.Provide(libp2p.TorPath(cfg.TorPath)),
+
 	)
 
 	return opts
