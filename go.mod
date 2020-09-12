@@ -111,6 +111,9 @@ require (
 	golang.org/x/lint v0.0.0-20200302205851-738671d3881b // indirect
 	golang.org/x/sync v0.0.0-20201207232520-09787c993a3a
 	golang.org/x/sys v0.0.0-20210124154548-22da62e12c0c
+	golang.org/x/tools v0.0.0-20200522201501-cb1345f3a375 // indirect
+	gopkg.in/cheggaaa/pb.v1 v1.0.28
+	paidpiper.com/go-libp2p-onion-transport v0.0.0-00010101000000-000000000000
 )
 
 go 1.14
@@ -119,5 +122,6 @@ replace github.com/libp2p/go-libp2p-core => ../go-libp2p-core
 replace paidpiper.com/go-libp2p-onion-transport => ../go-libp2p-onion-transport
 replace github.com/ipfs/go-ipfs-config => ../go-ipfs-config
 replace github.com/ipfs/go-bitswap => ../go-bitswap
-
+replace github.com/multiformats/go-multiaddr => ../go-multiaddr
+replace github.com/multiformats/go-multiaddr-net => ../go-multiaddr-net
 
