@@ -116,11 +116,17 @@ require (
 )
 
 replace github.com/libp2p/go-libp2p => ../go-libp2p
+
 replace github.com/libp2p/go-libp2p-core => ../go-libp2p-core
+
 replace paidpiper.com/go-libp2p-onion-transport => ../go-libp2p-onion-transport
+
 replace github.com/ipfs/go-ipfs-config => ../go-ipfs-config
+
 replace github.com/ipfs/go-bitswap => ../go-bitswap
+
 replace github.com/multiformats/go-multiaddr => ../go-multiaddr
+
 replace github.com/multiformats/go-multiaddr-net => ../go-multiaddr-net
 
 go 1.13
