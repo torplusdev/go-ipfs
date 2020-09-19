@@ -29,6 +29,9 @@ const (
 	bitsOptionName      = "bits"
 	emptyRepoOptionName = "empty-repo"
 	profileOptionName   = "profile"
+
+	ppChannelUrlName = "ppchannel"
+	commandPortName  = "commandPort"
 )
 
 var errRepoExists = errors.New(`ipfs configuration file already exists!
@@ -63,6 +66,8 @@ environment variable:
 		cmds.StringOption(profileOptionName, "p", "Apply profile settings to config. Multiple profiles can be separated by ','"),
 		cmds.StringOption(announceAddressName, "a", "Onion service address to announce."),
 		cmds.StringOption(bootStrapAddressName, "t", "Bootstrap peer address."),
+		cmds.StringOption(ppChannelUrlName, "u", "PPChannel URL.").WithDefault("http://localhost:28080"),
+		cmds.IntOption(commandPortName, "m", "PPChannel command callback listen port").WithDefault(30500),
 
 		// TODO need to decide whether to expose the override as a file or a
 		// directory. That is: should we allow the user to also specify the
