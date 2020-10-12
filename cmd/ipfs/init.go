@@ -30,8 +30,10 @@ const (
 	emptyRepoOptionName = "empty-repo"
 	profileOptionName   = "profile"
 
-	ppChannelUrlName = "ppchannel"
-	commandPortName  = "commandPort"
+	ppChannelUrlName  = "ppchannel"
+	commandPortName   = "commandPort"
+	torPathName       = "torPath"
+	torConfigPathName = "torConfigPath"
 )
 
 var errRepoExists = errors.New(`ipfs configuration file already exists!
@@ -68,6 +70,8 @@ environment variable:
 		cmds.StringOption(bootStrapAddressName, "t", "Bootstrap peer address."),
 		cmds.StringOption(ppChannelUrlName, "u", "PPChannel URL.").WithDefault("http://localhost:28080"),
 		cmds.IntOption(commandPortName, "m", "PPChannel command callback listen port").WithDefault(30500),
+		cmds.StringOption(torPathName, "r", "Tor executable path."),
+		cmds.StringOption(torConfigPathName, "o", "Tor configuration path."),
 
 		// TODO need to decide whether to expose the override as a file or a
 		// directory. That is: should we allow the user to also specify the
@@ -128,7 +132,7 @@ environment variable:
 		}
 
 		profiles, _ := req.Options[profileOptionName].(string)
-		return doInit(os.Stdout, cctx.ConfigRoot, empty, profiles, conf)
+		return doInit(os.Stdout, cctx.ConfigRoot, empty, &identity, profiles, ppChannelUrl, commandPort, torPath, torConfigPath, conf)
 	},
 }
 
@@ -150,7 +154,7 @@ func applyProfiles(conf *config.Config, profiles string) error {
 	return nil
 }
 
-func doInit(out io.Writer, repoRoot string, empty bool, confProfiles string, conf *config.Config) error {
+func doInit(out io.Writer, repoRoot string, empty bool, identity *config.Identity, confProfiles string, ppChannelUrl string, commandPort int, torPath string, torConfigPath string, conf *config.Config) error {
 	if _, err := fmt.Fprintf(out, "initializing IPFS node at %s\n", repoRoot); err != nil {
 		return err
 	}
@@ -161,6 +165,18 @@ func doInit(out io.Writer, repoRoot string, empty bool, confProfiles string, con
 
 	if fsrepo.IsInitialized(repoRoot) {
 		return errRepoExists
+	}
+
+	if identity == nil {
+		return fmt.Errorf("No Identity provided for initialization")
+	}
+
+	if conf == nil {
+		var err error
+		conf, err = config.InitWithIdentity(*identity, ppChannelUrl, commandPort, torPath, torConfigPath)
+		if err != nil {
+			return err
+		}
 	}
 
 	if err := applyProfiles(conf, confProfiles); err != nil {
