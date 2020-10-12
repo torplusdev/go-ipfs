@@ -30,6 +30,8 @@ const (
 	bootStrapAddressName   = "bootStrap"
 	ppChannelUrlName       = "ppchannel"
 	commandPortName        = "commandPort"
+	torPathName			   = "torPath"
+	torConfigPathName	   = "torConfigPath"
 )
 
 var errRepoExists = errors.New(`ipfs configuration file already exists!
@@ -65,6 +67,8 @@ environment variable:
 		cmds.StringOption(bootStrapAddressName, "t", "Bootstrap peer address."),
 		cmds.StringOption(ppChannelUrlName, "u", "PPChannel URL.").WithDefault("http://localhost:28080"),
 		cmds.IntOption(commandPortName, "m", "PPChannel command callback listen port").WithDefault(30500),
+		cmds.StringOption(torPathName, "r", "Tor executable path."),
+		cmds.StringOption(torConfigPathName, "o", "Tor configuration path."),
 
 		// TODO need to decide whether to expose the override as a file or a
 		// directory. That is: should we allow the user to also specify the
@@ -119,6 +123,8 @@ environment variable:
 		bootStrapAddressStr, _ := req.Options[bootStrapAddressName].(string)
 		ppChannelUrl, _ := req.Options[ppChannelUrlName].(string)
 		commandPort, _ := req.Options[commandPortName].(int)
+		torPath, _ := req.Options[torPathName].(string)
+		torConfigPath, _ := req.Options[torConfigPathName].(string)
 
 		splitFn := func(c rune) bool {
 			return c == ','
@@ -127,7 +133,7 @@ environment variable:
 		announceAddress := strings.FieldsFunc(announceAddressStr, splitFn)
 		bootStrapAddress := strings.FieldsFunc(bootStrapAddressStr, splitFn)
 
-		return doInit(os.Stdout, cctx.ConfigRoot, empty, nBitsForKeypair, profiles, announceAddress, bootStrapAddress, ppChannelUrl, commandPort, conf)
+		return doInit(os.Stdout, cctx.ConfigRoot, empty, nBitsForKeypair, profiles, announceAddress, bootStrapAddress, ppChannelUrl, commandPort, torPath, torConfigPath, conf)
 	},
 }
 
@@ -149,7 +155,7 @@ func applyProfiles(conf *config.Config, profiles string) error {
 	return nil
 }
 
-func doInit(out io.Writer, repoRoot string, empty bool, nBitsForKeypair int, confProfiles string, announceAddresses []string, bootStrapAddress []string, ppChannelUrl string, commandPort int, conf *config.Config) error {
+func doInit(out io.Writer, repoRoot string, empty bool, nBitsForKeypair int, confProfiles string, announceAddresses []string, bootStrapAddress []string, ppChannelUrl string, commandPort int, torPath string, torConfigPath string, conf *config.Config) error {
 	if _, err := fmt.Fprintf(out, "initializing IPFS node at %s\n", repoRoot); err != nil {
 		return err
 	}
@@ -164,7 +170,7 @@ func doInit(out io.Writer, repoRoot string, empty bool, nBitsForKeypair int, con
 
 	if conf == nil {
 		var err error
-		conf, err = config.Init(out, nBitsForKeypair, bootStrapAddress, announceAddresses, ppChannelUrl, commandPort)
+		conf, err = config.Init(out, nBitsForKeypair, bootStrapAddress, announceAddresses, ppChannelUrl, commandPort, torPath, torConfigPath)
 		if err != nil {
 			return err
 		}
