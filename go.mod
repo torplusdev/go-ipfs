@@ -92,6 +92,7 @@ require (
 	github.com/miekg/dns v1.1.29 // indirect
 	github.com/mitchellh/go-homedir v1.1.0
 	github.com/multiformats/go-multiaddr v0.3.1
+	github.com/mr-tron/base58 v1.2.0
 	github.com/multiformats/go-multiaddr-dns v0.2.0
 	github.com/multiformats/go-multibase v0.0.3
 	github.com/multiformats/go-multihash v0.0.14
@@ -130,4 +131,6 @@ replace github.com/ipfs/go-bitswap => ../go-bitswap
 replace github.com/multiformats/go-multiaddr => ../go-multiaddr
 
 replace github.com/multiformats/go-multiaddr-net => ../go-multiaddr-net
+
+replace github.com/libp2p/go-libp2p-swarm => ../go-libp2p-swarm
 
