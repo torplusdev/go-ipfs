@@ -63,7 +63,7 @@ require (
 	github.com/libp2p/go-libp2p v0.9.6
 	github.com/libp2p/go-libp2p-circuit v0.2.3
 	github.com/libp2p/go-libp2p-connmgr v0.2.4
-	github.com/libp2p/go-libp2p-core v0.5.7
+	github.com/libp2p/go-libp2p-core v0.6.0
 	github.com/libp2p/go-libp2p-discovery v0.4.0
 	github.com/libp2p/go-libp2p-http v0.1.5
 	github.com/libp2p/go-libp2p-kad-dht v0.8.2
@@ -89,12 +89,12 @@ require (
 	github.com/mgutz/ansi v0.0.0-20200706080929-d51e80ef957d // indirect
 	github.com/miekg/dns v1.1.29 // indirect
 	github.com/mitchellh/go-homedir v1.1.0
-	github.com/mr-tron/base58 v1.1.3
+	github.com/mr-tron/base58 v1.2.0
 	github.com/multiformats/go-multiaddr v0.2.2
 	github.com/multiformats/go-multiaddr-dns v0.2.0
 	github.com/multiformats/go-multiaddr-net v0.1.5
 	github.com/multiformats/go-multibase v0.0.3
-	github.com/multiformats/go-multihash v0.0.13
+	github.com/multiformats/go-multihash v0.0.14
 	github.com/opentracing/opentracing-go v1.1.0
 	github.com/pkg/errors v0.9.1
 	github.com/prometheus/client_golang v1.6.0
@@ -128,5 +128,7 @@ replace github.com/ipfs/go-bitswap => ../go-bitswap
 replace github.com/multiformats/go-multiaddr => ../go-multiaddr
 
 replace github.com/multiformats/go-multiaddr-net => ../go-multiaddr-net
+
+replace github.com/libp2p/go-libp2p-swarm => ../go-libp2p-swarm
 
 go 1.13
