@@ -3,6 +3,7 @@ package main
 
 import (
 	"context"
+	"flag"
 	"errors"
 	"fmt"
 	"math/rand"
@@ -11,6 +12,7 @@ import (
 	"os"
 	"runtime/pprof"
 	"strings"
+	"syscall"
 	"time"
 
 	util "github.com/ipfs/go-ipfs/cmd/ipfs/util"
