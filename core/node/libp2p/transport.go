@@ -2,6 +2,7 @@ package libp2p
 
 import (
 	"fmt"
+
 	oniontransport "paidpiper.com/go-libp2p-onion-transport"
 
 	config "github.com/ipfs/go-ipfs-config"
@@ -42,10 +43,8 @@ func Transports(tptConfig config.Transports, config *config.Config) interface{} 
 	return func(pnet struct {
 		fx.In
 		Fprint PNetFingerprint `optional:"true"`
-	}) (opts Libp2pOpts,err error) {
+	}) (opts Libp2pOpts, err error) {
 		privateNetworkEnabled := pnet.Fprint != nil
-
-
 
 		if tptConfig.Network.TCP.WithDefault(true) {
 			opts.Opts = append(opts.Opts, libp2p.Transport(tcp.NewTCPTransport))
@@ -58,7 +57,7 @@ func Transports(tptConfig config.Transports, config *config.Config) interface{} 
 		if tptConfig.Network.Tor.WithDefault(true) {
 			opts.Opts = append(opts.Opts, libp2p.Transport(
 				oniontransport.NewOnionTransportC(config.TorPath,
-					config.TorConfigPath,"", nil, "", true)))
+					config.TorConfigPath, "", nil, "", true)))
 		}
 
 		if tptConfig.Network.QUIC.WithDefault(!privateNetworkEnabled) {
