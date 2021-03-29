@@ -30,10 +30,12 @@ const (
 	emptyRepoOptionName = "empty-repo"
 	profileOptionName   = "profile"
 
-	ppChannelUrlName  = "ppchannel"
-	commandPortName   = "commandPort"
-	torPathName       = "torPath"
-	torConfigPathName = "torConfigPath"
+	announceAddressName  = "announce"
+	bootStrapAddressName = "bootStrap"
+	ppChannelUrlName     = "ppchannel"
+	commandPortName      = "commandPort"
+	torPathName          = "torPath"
+	torConfigPathName    = "torConfigPath"
 )
 
 var errRepoExists = errors.New(`ipfs configuration file already exists!
@@ -132,6 +134,11 @@ environment variable:
 		}
 
 		profiles, _ := req.Options[profileOptionName].(string)
+
+		ppChannelUrl, _ := req.Options[ppChannelUrlName].(string)
+		commandPort, _ := req.Options[commandPortName].(int)
+		torPath, _ := req.Options[torPathName].(string)
+		torConfigPath, _ := req.Options[torConfigPathName].(string)
 		return doInit(os.Stdout, cctx.ConfigRoot, empty, &identity, profiles, ppChannelUrl, commandPort, torPath, torConfigPath, conf)
 	},
 }

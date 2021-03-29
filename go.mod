@@ -89,11 +89,10 @@ require (
 	github.com/lucas-clemente/quic-go v0.19.3
 	github.com/mattn/go-runewidth v0.0.9 // indirect
 	github.com/mgutz/ansi v0.0.0-20200706080929-d51e80ef957d // indirect
-	github.com/miekg/dns v1.1.29 // indirect
 	github.com/mitchellh/go-homedir v1.1.0
 	github.com/multiformats/go-multiaddr v0.3.1
-	github.com/mr-tron/base58 v1.2.0
 	github.com/multiformats/go-multiaddr-dns v0.2.0
+	github.com/multiformats/go-multiaddr-net v0.2.0
 	github.com/multiformats/go-multibase v0.0.3
 	github.com/multiformats/go-multihash v0.0.14
 	github.com/opentracing/opentracing-go v1.2.0

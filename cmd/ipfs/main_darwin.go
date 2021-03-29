@@ -10,7 +10,6 @@ import (
 	"net/http"
 	"os"
 	"runtime/pprof"
-	"strings"
 	"time"
 
 	util "github.com/ipfs/go-ipfs/cmd/ipfs/util"
@@ -202,17 +201,17 @@ func apiAddrOption(req *cmds.Request) (ma.Multiaddr, error) {
 func makeExecutor(req *cmds.Request, env interface{}) (cmds.Executor, error) {
 	exe := cmds.NewExecutor(req.Root)
 	cctx := env.(*oldcmds.Context)
-	details := commandDetails(req.Path)
+	//details := commandDetails(req.Path) TODO FIX
 
 	// Check if the command is disabled.
-	if details.cannotRunOnClient && details.cannotRunOnDaemon {
-		return nil, fmt.Errorf("command disabled: %v", req.Path)
-	}
+	// if details.cannotRunOnClient && details.cannotRunOnDaemon {
+	// 	return nil, fmt.Errorf("command disabled: %v", req.Path)
+	// }
 
 	// Can we just run this locally?
-	if !details.cannotRunOnClient && details.doesNotUseRepo {
-		return exe, nil
-	}
+	// if !details.cannotRunOnClient && details.doesNotUseRepo {
+	// 	return exe, nil
+	// }
 
 	// Get the API option from the commandline.
 	apiAddr, err := apiAddrOption(req)
@@ -225,14 +224,14 @@ func makeExecutor(req *cmds.Request, env interface{}) (cmds.Executor, error) {
 	daemonRequested := apiAddr != nil && req.Command != daemonCmd
 
 	// Run this on the client if required.
-	if details.cannotRunOnDaemon || req.Command.External {
-		if daemonRequested {
-			// User requested that the command be run on the daemon but we can't.
-			// NOTE: We drop this check for the `ipfs daemon` command.
-			return nil, errors.New("api flag specified but command cannot be run on the daemon")
-		}
-		return exe, nil
-	}
+	// if details.cannotRunOnDaemon || req.Command.External { TODO FIX
+	// 	if daemonRequested {
+	// 		// User requested that the command be run on the daemon but we can't.
+	// 		// NOTE: We drop this check for the `ipfs daemon` command.
+	// 		return nil, errors.New("api flag specified but command cannot be run on the daemon")
+	// 	}
+	// 	return exe, nil
+	// }
 
 	// Finally, look in the repo for an API file.
 	if apiAddr == nil {
@@ -247,9 +246,9 @@ func makeExecutor(req *cmds.Request, env interface{}) (cmds.Executor, error) {
 
 	// Still no api specified? Run it on the client or fail.
 	if apiAddr == nil {
-		if details.cannotRunOnClient {
-			return nil, fmt.Errorf("command must be run on the daemon: %v", req.Path)
-		}
+		// if details.cannotRunOnClient { TODO FIX
+		// 	return nil, fmt.Errorf("command must be run on the daemon: %v", req.Path)
+		// }
 		return exe, nil
 	}
 
@@ -294,20 +293,20 @@ func makeExecutor(req *cmds.Request, env interface{}) (cmds.Executor, error) {
 }
 
 // commandDetails returns a command's details for the command given by |path|.
-func commandDetails(path []string) cmdDetails {
-	if len(path) == 0 {
-		// special case root command
-		return cmdDetails{doesNotUseRepo: true}
-	}
-	var details cmdDetails
-	// find the last command in path that has a cmdDetailsMap entry
-	for i := range path {
-		if cmdDetails, found := cmdDetailsMap[strings.Join(path[:i+1], "/")]; found {
-			details = cmdDetails
-		}
-	}
-	return details
-}
+// func commandDetails(path []string) cmdDetails {
+// 	if len(path) == 0 {
+// 		// special case root command
+// 		return cmdDetails{doesNotUseRepo: true}
+// 	}
+// 	var details cmdDetails
+// 	// find the last command in path that has a cmdDetailsMap entry
+// 	for i := range path {
+// 		if cmdDetails, found := cmdDetailsMap[strings.Join(path[:i+1], "/")]; found {
+// 			details = cmdDetails
+// 		}
+// 	}
+// 	return details
+// }
 
 func getRepoPath(req *cmds.Request) (string, error) {
 	repoOpt, found := req.Options["config"].(string)
