@@ -89,6 +89,11 @@ environment variable:
 		algorithm, _ := req.Options[algorithmOptionName].(string)
 		nBitsForKeypair, nBitsGiven := req.Options[bitsOptionName].(int)
 
+		ppChannelUrl, _ := req.Options[ppChannelUrlName].(string)
+		commandPort, _ := req.Options[commandPortName].(int)
+		torPath, _ := req.Options[torPathName].(string)
+		torConfigPath, _ := req.Options[torConfigPathName].(string)
+
 		var conf *config.Config
 
 		f := req.Files
@@ -127,7 +132,7 @@ environment variable:
 			if err != nil {
 				return err
 			}
-			conf, err = config.InitWithIdentity(identity)
+			conf, err = config.InitWithIdentity(identity, ppChannelUrl, commandPort, torPath, torConfigPath)
 			if err != nil {
 				return err
 			}
@@ -135,11 +140,7 @@ environment variable:
 
 		profiles, _ := req.Options[profileOptionName].(string)
 
-		ppChannelUrl, _ := req.Options[ppChannelUrlName].(string)
-		commandPort, _ := req.Options[commandPortName].(int)
-		torPath, _ := req.Options[torPathName].(string)
-		torConfigPath, _ := req.Options[torConfigPathName].(string)
-		return doInit(os.Stdout, cctx.ConfigRoot, empty, &identity, profiles, ppChannelUrl, commandPort, torPath, torConfigPath, conf)
+		return doInit(os.Stdout, cctx.ConfigRoot, empty, profiles, conf)
 	},
 }
 
@@ -161,7 +162,7 @@ func applyProfiles(conf *config.Config, profiles string) error {
 	return nil
 }
 
-func doInit(out io.Writer, repoRoot string, empty bool, identity *config.Identity, confProfiles string, ppChannelUrl string, commandPort int, torPath string, torConfigPath string, conf *config.Config) error {
+func doInit(out io.Writer, repoRoot string, empty bool, confProfiles string, conf *config.Config) error {
 	if _, err := fmt.Fprintf(out, "initializing IPFS node at %s\n", repoRoot); err != nil {
 		return err
 	}
@@ -172,18 +173,6 @@ func doInit(out io.Writer, repoRoot string, empty bool, identity *config.Identit
 
 	if fsrepo.IsInitialized(repoRoot) {
 		return errRepoExists
-	}
-
-	if identity == nil {
-		return fmt.Errorf("No Identity provided for initialization")
-	}
-
-	if conf == nil {
-		var err error
-		conf, err = config.InitWithIdentity(*identity, ppChannelUrl, commandPort, torPath, torConfigPath)
-		if err != nil {
-			return err
-		}
 	}
 
 	if err := applyProfiles(conf, confProfiles); err != nil {

@@ -257,13 +257,13 @@ func daemonFunc(req *cmds.Request, re cmds.ResponseEmitter, env cmds.Environment
 			if err != nil {
 				return err
 			}
-			conf, err = config.InitWithIdentity(identity)
+			conf, err = config.InitWithIdentity(identity, "", 0, "", "")
 			if err != nil {
 				return err
 			}
 		}
 
-		if err = doInit(os.Stdout, cctx.ConfigRoot, false, &identity, profiles, "", 0, "", "", conf); err != nil {
+		if err = doInit(os.Stdout, cctx.ConfigRoot, false, profiles, conf); err != nil {
 			return err
 		}
 	}

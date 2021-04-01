@@ -13,6 +13,7 @@ require (
 	github.com/gabriel-vasile/mimetype v1.1.2
 	github.com/go-bindata/go-bindata/v3 v3.1.3
 	github.com/gogo/protobuf v1.3.2
+	github.com/gorilla/mux v1.8.0 // indirect
 	github.com/hashicorp/go-multierror v1.1.0
 	github.com/hashicorp/golang-lru v0.5.4
 	github.com/ipfs/go-bitswap v0.3.3
@@ -111,12 +112,12 @@ require (
 	golang.org/x/lint v0.0.0-20200302205851-738671d3881b // indirect
 	golang.org/x/sync v0.0.0-20201207232520-09787c993a3a
 	golang.org/x/sys v0.0.0-20210124154548-22da62e12c0c
-	golang.org/x/tools v0.0.0-20200522201501-cb1345f3a375 // indirect
 	gopkg.in/cheggaaa/pb.v1 v1.0.28
 	paidpiper.com/go-libp2p-onion-transport v0.0.0-00010101000000-000000000000
 )
 
 go 1.14
+
 replace github.com/libp2p/go-libp2p => ../go-libp2p
 
 replace github.com/libp2p/go-libp2p-core => ../go-libp2p-core
@@ -132,4 +133,3 @@ replace github.com/multiformats/go-multiaddr => ../go-multiaddr
 replace github.com/multiformats/go-multiaddr-net => ../go-multiaddr-net
 
 replace github.com/libp2p/go-libp2p-swarm => ../go-libp2p-swarm
-
