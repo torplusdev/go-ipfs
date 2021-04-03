@@ -132,3 +132,5 @@ replace github.com/multiformats/go-multiaddr => ../go-multiaddr
 replace github.com/multiformats/go-multiaddr-net => ../go-multiaddr-net
 
 replace github.com/libp2p/go-libp2p-swarm => ../go-libp2p-swarm
+
+replace paidpiper.com/payment-gateway => ../go-payment-service/PaymentGateway
