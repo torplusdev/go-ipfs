@@ -68,7 +68,7 @@ environment variable:
 		cmds.IntOption(bitsOptionName, "b", "Number of bits to use in the generated RSA private key."),
 		cmds.BoolOption(emptyRepoOptionName, "e", "Don't add and pin help files to the local storage."),
 		cmds.StringOption(profileOptionName, "p", "Apply profile settings to config. Multiple profiles can be separated by ','"),
-		cmds.StringOption(announceAddressName, "a", "Onion service address to announce."),
+		cmds.StringOption(announceAddressName, "n", "Onion service address to announce."),
 		cmds.StringOption(bootStrapAddressName, "t", "Bootstrap peer address."),
 		cmds.StringOption(ppChannelUrlName, "u", "PPChannel URL.").WithDefault("http://localhost:28080"),
 		cmds.IntOption(commandPortName, "m", "PPChannel command callback listen port").WithDefault(30500),

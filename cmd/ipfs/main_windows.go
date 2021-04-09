@@ -3,15 +3,14 @@ package main
 
 import (
 	"context"
-	"flag"
 	"errors"
+	"flag"
 	"fmt"
 	"math/rand"
 	"net"
 	"net/http"
 	"os"
 	"runtime/pprof"
-	"strings"
 	"syscall"
 	"time"
 
@@ -259,16 +258,17 @@ func apiAddrOption(req *cmds.Request) (ma.Multiaddr, error) {
 func makeExecutor(req *cmds.Request, env interface{}) (cmds.Executor, error) {
 	exe := cmds.NewExecutor(req.Root)
 	cctx := env.(*oldcmds.Context)
-	details := commandDetails(req.Path)
 
 	// Check if the command is disabled.
-	if details.cannotRunOnClient && details.cannotRunOnDaemon {
+	if req.Command.NoLocal && req.Command.NoRemote {
 		return nil, fmt.Errorf("command disabled: %v", req.Path)
 	}
 
 	// Can we just run this locally?
-	if !details.cannotRunOnClient && details.doesNotUseRepo {
-		return exe, nil
+	if !req.Command.NoLocal {
+		if doesNotUseRepo, ok := corecmds.GetDoesNotUseRepo(req.Command.Extra); doesNotUseRepo && ok {
+			return exe, nil
+		}
 	}
 
 	// Get the API option from the commandline.
@@ -281,8 +281,7 @@ func makeExecutor(req *cmds.Request, env interface{}) (cmds.Executor, error) {
 	// passed (unless we're trying to _run_ the daemon).
 	daemonRequested := apiAddr != nil && req.Command != daemonCmd
 
-	// Run this on the client if required.
-	if details.cannotRunOnDaemon || req.Command.External {
+	if req.Command.NoRemote {
 		if daemonRequested {
 			// User requested that the command be run on the daemon but we can't.
 			// NOTE: We drop this check for the `ipfs daemon` command.
@@ -304,12 +303,11 @@ func makeExecutor(req *cmds.Request, env interface{}) (cmds.Executor, error) {
 
 	// Still no api specified? Run it on the client or fail.
 	if apiAddr == nil {
-		if details.cannotRunOnClient {
+		if req.Command.NoLocal {
 			return nil, fmt.Errorf("command must be run on the daemon: %v", req.Path)
 		}
 		return exe, nil
 	}
-
 	// Resolve the API addr.
 	apiAddr, err = resolveAddr(req.Context, apiAddr)
 	if err != nil {
@@ -348,22 +346,6 @@ func makeExecutor(req *cmds.Request, env interface{}) (cmds.Executor, error) {
 	}
 
 	return cmdhttp.NewClient(host, opts...), nil
-}
-
-// commandDetails returns a command's details for the command given by |path|.
-func commandDetails(path []string) cmdDetails {
-	if len(path) == 0 {
-		// special case root command
-		return cmdDetails{doesNotUseRepo: true}
-	}
-	var details cmdDetails
-	// find the last command in path that has a cmdDetailsMap entry
-	for i := range path {
-		if cmdDetails, found := cmdDetailsMap[strings.Join(path[:i+1], "/")]; found {
-			details = cmdDetails
-		}
-	}
-	return details
 }
 
 func getRepoPath(req *cmds.Request) (string, error) {
