@@ -39,6 +39,15 @@ func TorConfigPath(path string) func() (opts Libp2pOpts, err error) {
 	}
 }
 
+func SupportNonAnonymous(supportNonAnonymous bool) func() (opts Libp2pOpts, err error) {
+	return func() (opts Libp2pOpts, err error) {
+		opts.Opts = append(opts.Opts, libp2p.SupportNonAnonymous(supportNonAnonymous))
+
+		return opts, nil
+	}
+}
+
+
 func Transports(tptConfig config.Transports, config *config.Config) interface{} {
 	return func(pnet struct {
 		fx.In
@@ -57,7 +66,7 @@ func Transports(tptConfig config.Transports, config *config.Config) interface{} 
 		if tptConfig.Network.Tor.WithDefault(true) {
 			opts.Opts = append(opts.Opts, libp2p.Transport(
 				oniontransport.NewOnionTransportC(config.TorPath,
-					config.TorConfigPath, "", nil, "", true)))
+					config.TorConfigPath, "", nil, "", true, config.SupportNonAnonymous)))
 		}
 
 		if tptConfig.Network.QUIC.WithDefault(!privateNetworkEnabled) {
