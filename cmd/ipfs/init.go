@@ -94,6 +94,16 @@ environment variable:
 		torPath, _ := req.Options[torPathName].(string)
 		torConfigPath, _ := req.Options[torConfigPathName].(string)
 
+		announceAddressStr, _ := req.Options[announceAddressName].(string)
+		bootStrapAddressStr, _ := req.Options[bootStrapAddressName].(string)
+
+		splitFn := func(c rune) bool {
+			return c == ','
+		}
+
+		announceAddress := strings.FieldsFunc(announceAddressStr, splitFn)
+		bootStrapAddress := strings.FieldsFunc(bootStrapAddressStr, splitFn)
+
 		var conf *config.Config
 
 		f := req.Files
@@ -132,13 +142,16 @@ environment variable:
 			if err != nil {
 				return err
 			}
-			conf, err = config.InitWithIdentity(identity, ppChannelUrl, commandPort, torPath, torConfigPath)
+			conf, err = config.InitWithIdentity(identity, announceAddress, bootStrapAddress,  ppChannelUrl, commandPort, torPath, torConfigPath)
 			if err != nil {
 				return err
 			}
 		}
 
 		profiles, _ := req.Options[profileOptionName].(string)
+
+
+
 
 		return doInit(os.Stdout, cctx.ConfigRoot, empty, profiles, conf)
 	},
