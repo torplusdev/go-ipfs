@@ -74,6 +74,9 @@ TOOL COMMANDS
   cid           Convert and discover properties of CIDs
   log           Manage and show logs of running daemon
 
+PP COMMANDS
+  fill 			Fill space with frequence data
+
 Use 'ipfs <command> --help' to learn more about each command.
 
 ipfs uses a repository in the local file system. By default, the repo is
@@ -150,6 +153,7 @@ var rootSubcommands = map[string]*cmds.Command{
 	"version":   VersionCmd,
 	"shutdown":  daemonShutdownCmd,
 	"cid":       CidCmd,
+	"fill":      FillCmd,
 }
 
 // RootRO is the readonly version of Root
