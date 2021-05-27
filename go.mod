@@ -137,3 +137,5 @@ replace github.com/libp2p/go-libp2p-kad-dht => ../go-libp2p-kad-dht
 replace github.com/libp2p/go-libp2p-swarm => ../go-libp2p-swarm
 
 replace paidpiper.com/payment-gateway => ../go-payment-service/PaymentGateway
+
+replace paidpiper.com/provider-service => ../go-payment-webui
