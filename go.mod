@@ -138,4 +138,4 @@ replace github.com/libp2p/go-libp2p-swarm => ../go-libp2p-swarm
 
 replace paidpiper.com/payment-gateway => ../go-payment-service/PaymentGateway
 
-replace paidpiper.com/provider-service => ../go-payment-webui
+replace paidpiper.com/provider-service => ../go-payment-service/payment-gateway-webui
