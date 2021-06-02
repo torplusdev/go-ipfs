@@ -35,6 +35,7 @@ const (
 	ppChannelUrlName     = "ppchannel"
 	commandPortName      = "commandPort"
 	torPathName          = "torPath"
+	torDataDirName       = "torDataDir"
 	torConfigPathName    = "torConfigPath"
 )
 
@@ -73,6 +74,7 @@ environment variable:
 		cmds.StringOption(ppChannelUrlName, "u", "PPChannel URL.").WithDefault("http://localhost:28080"),
 		cmds.IntOption(commandPortName, "m", "PPChannel command callback listen port").WithDefault(30500),
 		cmds.StringOption(torPathName, "r", "Tor executable path."),
+		cmds.StringOption(torDataDirName, "d", "Tor data dir."),
 		cmds.StringOption(torConfigPathName, "o", "Tor configuration path."),
 
 		// TODO need to decide whether to expose the override as a file or a
@@ -92,6 +94,7 @@ environment variable:
 		ppChannelUrl, _ := req.Options[ppChannelUrlName].(string)
 		commandPort, _ := req.Options[commandPortName].(int)
 		torPath, _ := req.Options[torPathName].(string)
+		torDataDir, _ := req.Options[torDataDirName].(string)
 		torConfigPath, _ := req.Options[torConfigPathName].(string)
 
 		announceAddressStr, _ := req.Options[announceAddressName].(string)
@@ -142,16 +145,13 @@ environment variable:
 			if err != nil {
 				return err
 			}
-			conf, err = config.InitWithIdentity(identity, announceAddress, bootStrapAddress,  ppChannelUrl, commandPort, torPath, torConfigPath)
+			conf, err = config.InitWithIdentity(identity, announceAddress, bootStrapAddress, ppChannelUrl, commandPort, torPath, torDataDir, torConfigPath)
 			if err != nil {
 				return err
 			}
 		}
 
 		profiles, _ := req.Options[profileOptionName].(string)
-
-
-
 
 		return doInit(os.Stdout, cctx.ConfigRoot, empty, profiles, conf)
 	},
