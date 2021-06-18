@@ -2,6 +2,7 @@ package coreapi
 
 import (
 	"context"
+	"fmt"
 	"sort"
 	"time"
 
@@ -105,7 +106,7 @@ func (api *SwarmAPI) ListenAddrs(context.Context) ([]ma.Multiaddr, error) {
 	if api.peerHost == nil {
 		return nil, coreiface.ErrOffline
 	}
-
+	fmt.Println("DEBUG: ListenAddrs")
 	return api.peerHost.Network().InterfaceListenAddresses()
 }
 

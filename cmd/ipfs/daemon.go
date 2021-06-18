@@ -581,7 +581,7 @@ func printSwarmAddrs(node *core.IpfsNode) {
 		fmt.Println("Swarm not listening, running in offline mode.")
 		return
 	}
-
+	fmt.Println("DEBUG: printSwarmAddrs")
 	var lisAddrs []string
 	ifaceAddrs, err := node.PeerHost.Network().InterfaceListenAddresses()
 	if err != nil {

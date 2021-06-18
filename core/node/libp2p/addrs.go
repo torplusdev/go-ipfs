@@ -106,7 +106,7 @@ func StartListening(addresses []string) func(host host.Host) error {
 		if err := host.Network().Listen(listenAddrs...); err != nil {
 			return err
 		}
-
+		fmt.Println("DEBUG: StartListening")
 		// list out our addresses
 		addrs, err := host.Network().InterfaceListenAddresses()
 		if err != nil {
