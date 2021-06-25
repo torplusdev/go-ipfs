@@ -136,6 +136,8 @@ replace github.com/libp2p/go-libp2p-kad-dht => ../go-libp2p-kad-dht
 
 replace github.com/libp2p/go-libp2p-swarm => ../go-libp2p-swarm
 
+replace github.com/libp2p/go-libp2p-kbucket => ../go-libp2p-kbucket
+
 replace paidpiper.com/payment-gateway => ../go-payment-service/PaymentGateway
 
 replace paidpiper.com/provider-service => ../go-payment-service/payment-gateway-webui
