@@ -237,7 +237,13 @@ func (i *gatewayHandler) getOrHeadHandler(w http.ResponseWriter, r *http.Request
 		return
 	}
 
-	dr, err := i.api.Unixfs().Get(r.Context(), resolvedPath)
+	dagReaderContext := r.Context()
+
+	if rangeValue := r.Header.Get("Range"); len(rangeValue) > 0 {
+		dagReaderContext = context.WithValue(dagReaderContext, "streamingScope", 1)
+	}
+
+	dr, err := i.api.Unixfs().Get(dagReaderContext, resolvedPath)
 	if err != nil {
 		webError(w, "ipfs cat "+escapedURLPath, err, http.StatusNotFound)
 		return
@@ -491,6 +497,16 @@ func (i *gatewayHandler) serveFile(w http.ResponseWriter, req *http.Request, nam
 		}
 	}
 	w.Header().Set("Content-Type", ctype)
+
+	// If we're dealing with a streaming payload (range query). we can add content-type check in the future
+	if rangeValue := req.Header.Get("Range"); len(rangeValue) > 0 {
+
+		// Register a handler for connection abort
+		go func() {
+			<-req.Context().Done()
+			log.Warnf("The client closed the connection prematurely. Cleaning up.")
+		}()
+	}
 
 	w = &statusResponseWriter{w}
 	http.ServeContent(w, req, name, modtime, content)
