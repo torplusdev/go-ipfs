@@ -7,7 +7,6 @@ require (
 	github.com/bren2010/proquint v0.0.0-20160323162903-38337c27106d
 	github.com/cheggaaa/pb v1.0.29
 	github.com/coreos/go-systemd/v22 v22.1.0
-	github.com/d4l3k/messagediff v1.2.1 // indirect
 	github.com/dustin/go-humanize v1.0.0
 	github.com/elgris/jsondiff v0.0.0-20160530203242-765b5c24c302
 	github.com/fsnotify/fsnotify v1.4.9
@@ -98,7 +97,7 @@ require (
 	github.com/multiformats/go-multihash v0.0.14
 	github.com/opentracing/opentracing-go v1.2.0
 	github.com/pkg/errors v0.9.1
-	github.com/prometheus/client_golang v1.7.1
+	github.com/prometheus/client_golang v1.11.0
 	github.com/stretchr/testify v1.7.0
 	github.com/syndtr/goleveldb v1.0.0
 	github.com/whyrusleeping/base32 v0.0.0-20170828182744-c30ac30633cc
@@ -111,7 +110,7 @@ require (
 	golang.org/x/crypto v0.0.0-20201221181555-eec23a3978ad
 	golang.org/x/lint v0.0.0-20200302205851-738671d3881b // indirect
 	golang.org/x/sync v0.0.0-20201207232520-09787c993a3a
-	golang.org/x/sys v0.0.0-20210124154548-22da62e12c0c
+	golang.org/x/sys v0.0.0-20210603081109-ebe580a85c40
 	paidpiper.com/go-libp2p-onion-transport v0.0.0-00010101000000-000000000000
 	paidpiper.com/payment-gateway v0.0.0
 )
