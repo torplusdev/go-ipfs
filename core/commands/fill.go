@@ -31,6 +31,7 @@ var FillCmd = &cmds.Command{
 	},
 	Encoders: cmds.EncoderMap{
 		cmds.Text: cmds.MakeTypedEncoder(func(req *cmds.Request, w io.Writer, list *fullOptions) error {
+			fmt.Fprintln(w, "Fill result:")
 			fmt.Fprintln(w, list.Size)
 			return nil
 		}),
