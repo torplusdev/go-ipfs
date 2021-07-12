@@ -2,6 +2,7 @@ package coreapi
 
 import (
 	"context"
+	"strings"
 
 	"github.com/ipfs/go-cid"
 	"paidpiper.com/payment-gateway/boom/data"
@@ -55,7 +56,10 @@ func (prox *ApiProxy) Connections() (*data.Connections, error) {
 	for _, peerID := range peerIds {
 		peerInfo := prox.api.peerstore.PeerInfo(peerID)
 		for _, address := range peerInfo.Addrs {
-			connections.Hosts = append(connections.Hosts, address.String())
+			addr := address.String()
+			if strings.HasPrefix(addr, "/onion") {
+				connections.Hosts = append(connections.Hosts, addr)
+			}
 		}
 
 	}
