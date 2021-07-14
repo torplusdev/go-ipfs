@@ -12,11 +12,12 @@ import (
 )
 
 type VersionPlusOutput struct {
-	Version   string
-	BuildDate string
-	Repo      string
-	System    string
-	Golang    string
+	Version     string
+	BuildDate   string
+	Repo        string
+	System      string
+	Golang      string
+	BuildNumber string
 }
 
 const (
@@ -45,11 +46,12 @@ var VersionPlusCmd = &cmds.Command{
 	Extra: CreateCmdExtras(SetDoesNotUseRepo(true), SetDoesNotUseConfigAsInput(true)),
 	Run: func(req *cmds.Request, res cmds.ResponseEmitter, env cmds.Environment) error {
 		return cmds.EmitOnce(res, &VersionPlusOutput{
-			Version:   plusVersion.Version(),
-			BuildDate: plusVersion.BuildDate(),
-			Repo:      fmt.Sprint(fsrepo.RepoVersion),
-			System:    runtime.GOARCH + "/" + runtime.GOOS, //TODO: Precise version here
-			Golang:    runtime.Version(),
+			Version:     plusVersion.Version(),
+			BuildDate:   plusVersion.BuildDate(),
+			Repo:        fmt.Sprint(fsrepo.RepoVersion),
+			System:      runtime.GOARCH + "/" + runtime.GOOS, //TODO: Precise version here
+			Golang:      runtime.Version(),
+			BuildNumber: plusVersion.BuildNumber(),
 		})
 	},
 	Encoders: cmds.EncoderMap{
@@ -59,8 +61,8 @@ var VersionPlusCmd = &cmds.Command{
 				ver := version.Version
 
 				out := fmt.Sprintf("go-ipfs version: %s\n"+
-					"Repo version: %s\nSystem version: %s\nGolang version: %s\n",
-					ver, version.Repo, version.System, version.Golang)
+					"repo version: %s\nsystem version: %s\ngolang version: %s\nbuild date:%s\nbuild number:%s",
+					ver, version.Repo, version.System, version.Golang, version.BuildDate, version.BuildNumber)
 				fmt.Fprint(w, out)
 				return nil
 			}

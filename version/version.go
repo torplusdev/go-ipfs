@@ -7,9 +7,10 @@ import (
 const unknown = "unknown"
 
 var (
-	buildDate  = unknown
-	commitHash string
-	version    string
+	buildNumber = unknown
+	buildDate   = unknown
+	commitHash  string
+	version     string
 )
 
 const defaultVersion = "devel"
@@ -33,4 +34,8 @@ func Version() string {
 // BuildDate returns the date this binary was built
 func BuildDate() string {
 	return buildDate
+}
+
+func BuildNumber() string {
+	return buildNumber
 }
