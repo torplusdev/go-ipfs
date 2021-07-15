@@ -34,7 +34,7 @@ type ApiProxy struct {
 func (prox *ApiProxy) Get(b [][]byte) error {
 	cids := []cid.Cid{}
 	for _, bs := range b {
-		cid, err := cid.Cast(bs)
+		cid, err := cid.Parse(bs)
 		if err != nil {
 			return err
 		}
