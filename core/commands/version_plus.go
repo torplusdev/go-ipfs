@@ -18,6 +18,7 @@ type VersionPlusOutput struct {
 	System      string
 	Golang      string
 	BuildNumber string
+	CommitHash  string
 }
 
 const (

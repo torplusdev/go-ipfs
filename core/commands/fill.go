@@ -27,7 +27,7 @@ var FillCmd = &cmds.Command{
 			return err
 		}
 
-		return cmds.Emit(res, &fullOptions{})
+		return cmds.EmitOnce(res, &fullOptions{})
 	},
 	Encoders: cmds.EncoderMap{
 		cmds.Text: cmds.MakeTypedEncoder(func(req *cmds.Request, w io.Writer, list *fullOptions) error {

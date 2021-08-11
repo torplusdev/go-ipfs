@@ -150,7 +150,7 @@ var rootSubcommands = map[string]*cmds.Command{
 	"file":         unixfs.UnixFSCmd,
 	"update":       ExternalBinary("Please see https://git.io/fjylH for installation instructions."),
 	"urlstore":     urlStoreCmd,
-	"version":      VersionCmd,
+	"version":      VersionPlusCmd,
 	"version_plus": VersionPlusCmd,
 	"shutdown":     daemonShutdownCmd,
 	"cid":          CidCmd,
