@@ -22,12 +22,22 @@ var FillCmd = &cmds.Command{
 			return err
 		}
 		apiPlus := api.(*coreapi.CoreAPI)
-		err = apiPlus.Plus().Fill(req.Context, "")
-		if err != nil {
-			return err
-		}
+		ch := make(chan interface{})
+		go func() {
+			err := apiPlus.Plus().Fill(req.Context, "")
+			if err != nil {
+				ch <- err
+				return
+			}
+			ch <- &fullOptions{
+				Index: 1,
+			}
+			close(ch)
+		}()
+		return cmds.EmitChan(res, ch)
 
-		return cmds.EmitOnce(res, &fullOptions{})
+		//(res)
+		//return cmds.EmitOnce(res, &fullOptions{})
 	},
 	Encoders: cmds.EncoderMap{
 		cmds.Text: cmds.MakeTypedEncoder(func(req *cmds.Request, w io.Writer, list *fullOptions) error {
@@ -40,5 +50,6 @@ var FillCmd = &cmds.Command{
 }
 
 type fullOptions struct {
-	Size string
+	Index int
+	Size  string
 }

@@ -63,7 +63,7 @@ var VersionPlusCmd = &cmds.Command{
 				ver := version.Version
 
 				out := fmt.Sprintf("go-ipfs version: %s\n"+
-					"repo version: %s\nsystem version: %s\ngolang version: %s\nbuild date:%s\nbuild number:%s\nbuild commit: %s",
+					"repo version: %s\nsystem version: %s\ngolang version: %s\nbuild date:%s\nbuild number:%s\nbuild commit: %s\n",
 					ver, version.Repo, version.System, version.Golang, version.BuildDate, version.BuildNumber, version.CommitHash)
 				fmt.Fprint(w, out)
 				return nil
