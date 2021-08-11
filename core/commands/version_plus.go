@@ -52,6 +52,7 @@ var VersionPlusCmd = &cmds.Command{
 			System:      runtime.GOARCH + "/" + runtime.GOOS, //TODO: Precise version here
 			Golang:      runtime.Version(),
 			BuildNumber: plusVersion.BuildNumber(),
+			CommitHash:  plusVersion.CommitHash(),
 		})
 	},
 	Encoders: cmds.EncoderMap{
@@ -61,8 +62,8 @@ var VersionPlusCmd = &cmds.Command{
 				ver := version.Version
 
 				out := fmt.Sprintf("go-ipfs version: %s\n"+
-					"repo version: %s\nsystem version: %s\ngolang version: %s\nbuild date:%s\nbuild number:%s",
-					ver, version.Repo, version.System, version.Golang, version.BuildDate, version.BuildNumber)
+					"repo version: %s\nsystem version: %s\ngolang version: %s\nbuild date:%s\nbuild number:%s\nbuild commit: %s",
+					ver, version.Repo, version.System, version.Golang, version.BuildDate, version.BuildNumber, version.CommitHash)
 				fmt.Fprint(w, out)
 				return nil
 			}

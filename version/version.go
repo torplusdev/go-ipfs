@@ -39,3 +39,7 @@ func BuildDate() string {
 func BuildNumber() string {
 	return buildNumber
 }
+
+func CommitHash() string {
+	return commitHash
+}
