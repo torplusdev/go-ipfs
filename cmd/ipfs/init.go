@@ -37,6 +37,7 @@ const (
 	torPathName          = "torPath"
 	torDataDirName       = "torDataDir"
 	torConfigPathName    = "torConfigPath"
+	routingTypeName      = "dhtRoutingType"
 )
 
 var errRepoExists = errors.New(`ipfs configuration file already exists!
@@ -99,7 +100,7 @@ environment variable:
 
 		announceAddressStr, _ := req.Options[announceAddressName].(string)
 		bootStrapAddressStr, _ := req.Options[bootStrapAddressName].(string)
-
+		routingTypeStr, _ := req.Options[routingTypeName].(string)
 		splitFn := func(c rune) bool {
 			return c == ','
 		}
@@ -145,7 +146,7 @@ environment variable:
 			if err != nil {
 				return err
 			}
-			conf, err = config.InitWithIdentity(identity, announceAddress, bootStrapAddress, ppChannelUrl, commandPort, torPath, torDataDir, torConfigPath)
+			conf, err = config.InitWithIdentity(identity, announceAddress, bootStrapAddress, routingTypeStr, ppChannelUrl, commandPort, torPath, torDataDir, torConfigPath)
 			if err != nil {
 				return err
 			}

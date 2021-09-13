@@ -257,7 +257,7 @@ func daemonFunc(req *cmds.Request, re cmds.ResponseEmitter, env cmds.Environment
 			if err != nil {
 				return err
 			}
-			conf, err = config.InitWithIdentity(identity, make([]string, 0), make([]string, 0), "", 0, "", "", "")
+			conf, err = config.InitWithIdentity(identity, make([]string, 0), make([]string, 0), "dht", "", 0, "", "", "")
 			if err != nil {
 				return err
 			}
