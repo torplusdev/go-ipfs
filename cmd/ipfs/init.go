@@ -77,6 +77,7 @@ environment variable:
 		cmds.StringOption(torPathName, "r", "Tor executable path."),
 		cmds.StringOption(torDataDirName, "d", "Tor data dir."),
 		cmds.StringOption(torConfigPathName, "o", "Tor configuration path."),
+		cmds.StringOption(routingTypeName, "doute", "Routing type."),
 
 		// TODO need to decide whether to expose the override as a file or a
 		// directory. That is: should we allow the user to also specify the
