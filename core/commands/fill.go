@@ -23,26 +23,38 @@ var FillCmd = &cmds.Command{
 		}
 		apiPlus := api.(*coreapi.CoreAPI)
 		ch := make(chan interface{})
+		outData := make(chan string)
+		chanClosed := false
 		go func() {
-			err := apiPlus.Plus().Fill(req.Context, "")
+
+			go func() {
+				for item := range outData {
+					if !chanClosed {
+						ch <- &fullOptions{
+							Description: item,
+						}
+					} else {
+						fmt.Println(item)
+					}
+
+				}
+			}()
+			err := apiPlus.Plus().Fill(req.Context, "", outData)
 			if err != nil {
 				ch <- err
 				return
 			}
-			ch <- &fullOptions{
-				Index: 1,
-			}
+
+			chanClosed = true
+			close(outData)
 			close(ch)
 		}()
 		return cmds.EmitChan(res, ch)
 
-		//(res)
-		//return cmds.EmitOnce(res, &fullOptions{})
 	},
 	Encoders: cmds.EncoderMap{
 		cmds.Text: cmds.MakeTypedEncoder(func(req *cmds.Request, w io.Writer, list *fullOptions) error {
-			fmt.Fprintln(w, "Fill result:")
-			fmt.Fprintln(w, list.Size)
+			fmt.Fprintln(w, fmt.Sprintf("%v %v", list.Step, list.Description))
 			return nil
 		}),
 	},
@@ -50,6 +62,6 @@ var FillCmd = &cmds.Command{
 }
 
 type fullOptions struct {
-	Index int
-	Size  string
+	Step        string
+	Description string
 }
