@@ -14,20 +14,20 @@ import (
 )
 
 type PlusAPI interface {
-	Fill(context.Context, string, chan string) error
+	Fill(ctx context.Context, s string, proxyPort string, ch chan string) error
 }
 
 func (api *CoreAPI) Plus() PlusAPI {
 	return api
 }
 
-func (api *CoreAPI) Fill(ctx context.Context, s string, ch chan string) error {
+func (api *CoreAPI) Fill(ctx context.Context, s string, proxyPort string, ch chan string) error {
 	p := &ApiProxy{
 		api,
 		ctx,
 		ch,
 	}
-	return boomModule.Fill(p, p, ch)
+	return boomModule.Fill(p, p, proxyPort, ch)
 }
 
 type ApiProxy struct {

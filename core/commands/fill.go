@@ -9,6 +9,10 @@ import (
 	"github.com/ipfs/go-ipfs/core/coreapi"
 )
 
+const (
+	PROXY_ADDR = "127.0.0.1:29050"
+)
+
 var FillCmd = &cmds.Command{
 	Helptext: cmds.HelpText{
 		Tagline: "List the logging subsystems.",
@@ -21,6 +25,14 @@ var FillCmd = &cmds.Command{
 		if err != nil {
 			return err
 		}
+		// cfgLocation := ""
+		// if cfgLocation != "" {
+		// 	if conf, err = cserial.Load(cfgLocation); err != nil {
+		// 		return err
+		// 	}
+
+		// }
+		proxyAdress := PROXY_ADDR
 		apiPlus := api.(*coreapi.CoreAPI)
 		ch := make(chan interface{})
 		outData := make(chan string)
@@ -39,7 +51,7 @@ var FillCmd = &cmds.Command{
 
 				}
 			}()
-			err := apiPlus.Plus().Fill(req.Context, "", outData)
+			err := apiPlus.Plus().Fill(req.Context, "", proxyAdress, outData)
 			if err != nil {
 				ch <- err
 				return
