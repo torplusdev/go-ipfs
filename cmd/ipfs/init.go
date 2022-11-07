@@ -30,14 +30,17 @@ const (
 	emptyRepoOptionName = "empty-repo"
 	profileOptionName   = "profile"
 
-	announceAddressName  = "announce"
-	bootStrapAddressName = "bootStrap"
-	ppChannelUrlName     = "ppchannel"
-	commandPortName      = "commandPort"
-	torPathName          = "torPath"
-	torDataDirName       = "torDataDir"
-	torConfigPathName    = "torConfigPath"
-	routingTypeName      = "dhtRoutingType"
+	announceAddressName          = "announce"
+	bootStrapAddressName         = "bootStrap"
+	ppChannelUrlName             = "ppchannel"
+	commandPortName              = "commandPort"
+	torPathName                  = "torPath"
+	torDataDirName               = "torDataDir"
+	torConfigPathName            = "torConfigPath"
+	routingTypeName              = "dhtRoutingType"
+	fillChunkSize                = "fillChunkSize"
+	fillChunkRetrievalTimeoutSec = "fillChunkRetrievalTimeoutSec"
+	torProxyUrl                  = "torProxyUrl"
 )
 
 var errRepoExists = errors.New(`ipfs configuration file already exists!
@@ -102,6 +105,9 @@ environment variable:
 		announceAddressStr, _ := req.Options[announceAddressName].(string)
 		bootStrapAddressStr, _ := req.Options[bootStrapAddressName].(string)
 		routingTypeStr, _ := req.Options[routingTypeName].(string)
+		//fillChunkSize, _  := req.Options[fillChunkSize].(int)
+		//fillChunkTimeoutSec, _  := req.Options[fillChunkRetrievalTimeoutSec].(int)
+
 		splitFn := func(c rune) bool {
 			return c == ','
 		}

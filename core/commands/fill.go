@@ -25,6 +25,12 @@ var FillCmd = &cmds.Command{
 		if err != nil {
 			return err
 		}
+
+		config, err := cmdenv.GetConfig(env)
+		if err != nil {
+			return err
+		}
+
 		// cfgLocation := ""
 		// if cfgLocation != "" {
 		// 	if conf, err = cserial.Load(cfgLocation); err != nil {
@@ -32,8 +38,14 @@ var FillCmd = &cmds.Command{
 		// 	}
 
 		// }
+
 		proxyAdress := PROXY_ADDR
 		apiPlus := api.(*coreapi.CoreAPI)
+
+		if config.TorProxyUrl != "" {
+			proxyAdress = config.TorProxyUrl
+		}
+
 		ch := make(chan interface{})
 		outData := make(chan string)
 		chanClosed := false
@@ -51,7 +63,8 @@ var FillCmd = &cmds.Command{
 
 				}
 			}()
-			err := apiPlus.Plus().Fill(req.Context, "", proxyAdress, outData)
+
+			err := apiPlus.Plus().Fill(req.Context, "", proxyAdress, outData, config)
 			if err != nil {
 				ch <- err
 				return

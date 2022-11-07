@@ -3,54 +3,93 @@ package coreapi
 import (
 	"context"
 	"fmt"
+	config "github.com/ipfs/go-ipfs-config"
 	"reflect"
 	"strings"
+	"time"
 	"unsafe"
 
 	"github.com/ipfs/go-cid"
+	"golang.org/x/time/rate"
 	"paidpiper.com/payment-gateway/boom/data"
 	boomModule "paidpiper.com/payment-gateway/boom/module"
 	boomServer "paidpiper.com/payment-gateway/boom/server"
 )
 
 type PlusAPI interface {
-	Fill(ctx context.Context, s string, proxyPort string, ch chan string) error
+	Fill(ctx context.Context, s string, proxyPort string, ch chan string, config *config.Config) error
 }
 
 func (api *CoreAPI) Plus() PlusAPI {
 	return api
 }
 
-func (api *CoreAPI) Fill(ctx context.Context, s string, proxyPort string, ch chan string) error {
+func (api *CoreAPI) Fill(ctx context.Context, s string, proxyPort string, ch chan string, config *config.Config) error {
 	p := &ApiProxy{
 		api,
 		ctx,
 		ch,
+		config,
 	}
 	return boomModule.Fill(p, p, proxyPort, ch)
 }
 
 type ApiProxy struct {
-	api *CoreAPI
-	ctx context.Context
-	ch  chan string
+	api    *CoreAPI
+	ctx    context.Context
+	ch     chan string
+	config *config.Config
 }
 
 func (prox *ApiProxy) Get(b [][]byte) error {
-	cids := []cid.Cid{}
+
+	chunkSize := prox.config.FillChunkSize
+	var chunkRetrievalTimeout int32 = 0
+	chunkRetrievalTimeout = int32(prox.config.FillChunkRetrievalTimeoutSec)
+
+	// Set to default chunk size if not provided
+	if chunkSize == 0 {
+		chunkSize = 25
+	}
+
+	if chunkRetrievalTimeout == 0 {
+		chunkRetrievalTimeout = 30
+	}
+
+	//limiterDuration := math.Round(float64(1.1 * chunkRetrievalTimeout))
+
+	limiter := rate.NewLimiter(rate.Every(time.Duration(chunkRetrievalTimeout)*time.Second), 2)
+
+	allCids := []cid.Cid{}
 	for _, bs := range b {
 		cid, err := cid.Parse(bs)
 		if err != nil {
 			return err
 		}
-		cids = append(cids, cid)
+		allCids = append(allCids, cid)
 	}
-	blocksChain := prox.api.blocks.GetBlocks(prox.ctx, cids)
-	for b := range blocksChain {
-		prox.ch <- fmt.Sprintf("Get Block %v %v bytes", b.Cid().String(), len(b.RawData()))
+	cidChunk := []cid.Cid{}
 
-		prox.api.blocks.AddBlock(b)
+	for _, c := range allCids {
+		cidChunk = append(cidChunk, c)
+
+		if len(cidChunk) > chunkSize {
+			limiter.Wait(prox.ctx)
+			ctx, _ := context.WithTimeout(prox.ctx, 30*time.Second)
+
+			blocksChain := prox.api.blocks.GetBlocks(ctx, cidChunk)
+
+			for b := range blocksChain {
+				prox.ch <- fmt.Sprintf("Get Block %v %v bytes", b.Cid().String(), len(b.RawData()))
+				prox.api.blocks.AddBlock(b)
+			}
+
+			// Empty the array
+			cidChunk = []cid.Cid{}
+		}
+
 	}
+
 	return nil
 }
 func isChanClosed(ch interface{}) bool {

@@ -106,11 +106,13 @@ require (
 	github.com/whyrusleeping/tar-utils v0.0.0-20201201191210-20a61371de5b
 	go.opencensus.io v0.22.5
 	go.uber.org/fx v1.13.1
+	go.uber.org/ratelimit v0.2.0
 	go.uber.org/zap v1.16.0
 	golang.org/x/crypto v0.0.0-20201221181555-eec23a3978ad
 	golang.org/x/lint v0.0.0-20200302205851-738671d3881b // indirect
 	golang.org/x/sync v0.0.0-20201207232520-09787c993a3a
 	golang.org/x/sys v0.0.0-20210603081109-ebe580a85c40
+	golang.org/x/time v0.0.0-20210220033141-f8bda1e9f3ba // indirect
 	paidpiper.com/go-libp2p-onion-transport v0.0.0-00010101000000-000000000000
 	paidpiper.com/payment-gateway v0.0.0
 )
