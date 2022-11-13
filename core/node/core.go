@@ -3,6 +3,7 @@ package node
 import (
 	"context"
 	"fmt"
+	"github.com/libp2p/go-libp2p-kad-dht/analysis"
 	"time"
 
 	"github.com/ipfs/go-bitswap"
@@ -38,6 +39,12 @@ func BlockService(lc fx.Lifecycle, bs blockstore.Blockstore, rem exchange.Interf
 	})
 
 	return bsvc
+}
+
+func RootValidator(bstore blockstore.Blockstore, dag format.DAGService) (analysis.RootValidator, error) {
+	rv := NewRootValidator(bstore, dag)
+
+	return rv, nil
 }
 
 // Pinning creates new pinner which tells GC which blocks should be kept

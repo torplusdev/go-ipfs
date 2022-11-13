@@ -11,10 +11,11 @@ package core
 
 import (
 	"context"
-	"io"
 	"fmt"
 	"github.com/ipfs/go-filestore"
 	"github.com/ipfs/go-ipfs-pinner"
+	"github.com/libp2p/go-libp2p-kad-dht/analysis"
+	"io"
 
 	bserv "github.com/ipfs/go-blockservice"
 	"github.com/ipfs/go-graphsync"
@@ -81,6 +82,7 @@ type IpfsNode struct {
 	Discovery       discovery.Service         `optional:"true"`
 	FilesRoot       *mfs.Root
 	RecordValidator record.Validator
+	RootValidator   analysis.RootValidator
 
 	// Online
 	PeerHost      p2phost.Host            `optional:"true"` // the network host (server+client)
@@ -208,6 +210,7 @@ func (n *IpfsNode) Bootstrap(cfg bootstrap.BootstrapConfig) error {
 	}
 
 	var err error
+
 	n.Bootstrapper, err = bootstrap.Bootstrap(n.Identity, n.PeerHost, n.Routing, cfg)
 	return err
 }

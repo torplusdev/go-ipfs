@@ -298,6 +298,7 @@ var Core = fx.Options(
 	fx.Provide(resolver.NewBasicResolver),
 	fx.Provide(Pinning),
 	fx.Provide(Files),
+	fx.Provide(RootValidator),
 )
 
 func Networked(bcfg *BuildCfg, cfg *config.Config) fx.Option {

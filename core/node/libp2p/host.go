@@ -2,7 +2,6 @@ package libp2p
 
 import (
 	"context"
-
 	"github.com/libp2p/go-libp2p"
 	host "github.com/libp2p/go-libp2p-core/host"
 	peer "github.com/libp2p/go-libp2p-core/peer"

@@ -362,6 +362,8 @@ func daemonFunc(req *cmds.Request, re cmds.ResponseEmitter, env cmds.Environment
 		log.Error("error from node construction: ", err)
 		return err
 	}
+
+	node.DHT.SetRootValidator(node.RootValidator)
 	node.IsDaemon = true
 
 	if node.PNetFingerprint != nil {
