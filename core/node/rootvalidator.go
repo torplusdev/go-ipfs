@@ -21,7 +21,7 @@ type rootValidator struct {
 }
 
 const (
-	DefaultExpectedCIDs = 1000000
+	DefaultExpectedCIDs = 100000
 )
 
 func (s *rootValidator) FindRoots(bs blockstore.Blockstore, dag ipld.DAGService) error {
@@ -60,7 +60,7 @@ func NewRootValidator(bs blockstore.Blockstore, dag ipld.DAGService) analysis.Ro
 	v := &rootValidator{
 		blockStore:       bs,
 		dag:              dag,
-		rootStore:        boom.NewCuckooFilter(DefaultExpectedCIDs, 0.01),
+		rootStore:        boom.NewCuckooFilter(DefaultExpectedCIDs, 0.05),
 		rootSearchTicker: ticker,
 	}
 
