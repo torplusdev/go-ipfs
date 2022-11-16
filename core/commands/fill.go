@@ -3,6 +3,7 @@ package commands
 import (
 	"fmt"
 	"io"
+	"sync"
 
 	cmds "github.com/ipfs/go-ipfs-cmds"
 	"github.com/ipfs/go-ipfs/core/commands/cmdenv"
@@ -49,17 +50,24 @@ var FillCmd = &cmds.Command{
 		ch := make(chan interface{})
 		outData := make(chan string)
 		chanClosed := false
+		closeLock := sync.Mutex{}
+
 		go func() {
 
 			go func() {
 				for item := range outData {
-					if !chanClosed {
-						ch <- &fullOptions{
-							Description: item,
+					func() {
+						closeLock.Lock()
+						defer closeLock.Unlock()
+
+						if !chanClosed {
+							ch <- &fullOptions{
+								Description: item,
+							}
+						} else {
+							fmt.Println(item)
 						}
-					} else {
-						fmt.Println(item)
-					}
+					}()
 
 				}
 			}()
@@ -70,6 +78,8 @@ var FillCmd = &cmds.Command{
 				return
 			}
 
+			closeLock.Lock()
+			defer closeLock.Unlock()
 			chanClosed = true
 			close(outData)
 			close(ch)
