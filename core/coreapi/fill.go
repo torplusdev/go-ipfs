@@ -56,9 +56,15 @@ func (prox *ApiProxy) Get(b [][]byte) error {
 		chunkRetrievalTimeout = 30
 	}
 
-	//limiterDuration := math.Round(float64(1.1 * chunkRetrievalTimeout))
+	// Override 200/60 gives good result
+	chunkSize = 10
+	chunkRetrievalTimeout = 3
+	getTimeout := 3
 
-	limiter := rate.NewLimiter(rate.Every(time.Duration(chunkRetrievalTimeout)*time.Second), 2)
+	//limiterDuration := math.Round(float64(1.1 * chunkRetrievalTimeout))
+	t1 := time.Duration(float64(chunkRetrievalTimeout) * float64(time.Second))
+	limiter := rate.NewLimiter(rate.Every(t1), 2)
+	_ = limiter
 
 	allCids := []cid.Cid{}
 	for _, bs := range b {
@@ -74,8 +80,10 @@ func (prox *ApiProxy) Get(b [][]byte) error {
 		cidChunk = append(cidChunk, c)
 
 		if len(cidChunk) > chunkSize {
-			limiter.Wait(prox.ctx)
-			ctx, _ := context.WithTimeout(prox.ctx, 30*time.Second)
+			//limiter.Wait(prox.ctx)
+
+			t2 := time.Duration(float64(getTimeout) * float64(time.Second))
+			ctx, _ := context.WithTimeout(prox.ctx, t2)
 
 			blocksChain := prox.api.blocks.GetBlocks(ctx, cidChunk)
 

@@ -153,6 +153,7 @@ environment variable:
 			if err != nil {
 				return err
 			}
+			//*, fillChunkSize, fillChunkTimeoutSec*/)
 			conf, err = config.InitWithIdentity(identity, announceAddress, bootStrapAddress, routingTypeStr, ppChannelUrl, commandPort, torPath, torDataDir, torConfigPath)
 			if err != nil {
 				return err
